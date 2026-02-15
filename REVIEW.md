@@ -1,6 +1,6 @@
 # Code Review Findings
 
-Findings from 4 automated review subagents run on 2026-02-14, covering: statistical analysis, data integrity, pipeline transcription, and research methodology.
+Findings from 4 automated review subagents run on 2026-02-14, updated 2026-02-15, covering: statistical analysis, data integrity, pipeline transcription, and research methodology.
 
 ## Fixes Applied
 
@@ -30,7 +30,9 @@ Only tokens listed on Binance are included. Binance's listing criteria may vary 
 The scraper matches "Binance Will List" title format, which misses some older listing announcements that used different formats ("Binance Lists X", "Launchpool", etc.). The current dataset of 225 tokens covers the period from 2018 onward well but underrepresents pre-2018 tokens. Tokens with earlier CoinGecko genesis dates still get correctly classified by cycle via the genesis_date preference logic.
 
 ### Market Cycle Boundary Definitions
-Cycle boundaries are hard-coded based on historical BTC price movements. The 2025-2026 Bear classification is provisional. Sensitivity analysis tests +/- 2 month boundary shifts and all produce non-significant results, supporting robustness.
+Cycle boundaries are hard-coded based on historical BTC price movements. The 2025-2026 Bear classification is provisional. Two robustness checks confirm the result is not an artifact of boundary definitions:
+1. **Sensitivity analysis**: Shifting boundaries by +/- 1-2 months — all produce non-significant results.
+2. **MA robustness check**: Replacing hand-labeled cycles entirely with BTC N-day SMA regime classification (50/100/200/300-day windows) — all p-values non-significant. The lowest (p=0.079 at 50-day) is well above the Bonferroni-corrected threshold of 0.0125.
 
 ### Dead Token Imputation
 Setting ROI = -1.0 for dead tokens creates a mass point at -100%. This is conservative and symmetric (applies to both groups). The imputation rate by group: Bull 16.7% delisted, Bear 12.3% delisted. The imputation prevents survivorship bias.
@@ -40,6 +42,9 @@ Tokens launched during "Recovery" periods (20 tokens) are excluded from the prim
 
 ### BTC-Relative Metric Endogeneity
 The BTC-relative return is partially endogenous to cycle classification since BTC's performance differs by cycle. This metric is secondary and not used for the main verdict.
+
+### Anchoring / Launch-Day Valuation Objection
+If bull tokens launch at higher FDVs and ROI is the same, bull tokens would maintain higher absolute dollar valuations. Tested empirically using launch-day circulating market cap (from CoinGecko chart history), FDV proxy (launch price x total supply), and current market cap. Result: bear tokens actually launched at somewhat higher median market caps. No evidence of persistent launch-day valuation premium. Analysis displayed on the analysis page.
 
 ### Sample Size Imbalance
 105 Bull vs 39 Bear tokens. Mann-Whitney U handles unequal sizes, but the smaller bear group limits precision. Bootstrap CI quantifies this uncertainty.

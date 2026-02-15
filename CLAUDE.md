@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Timing the Market is a data research project analyzing whether the timing of a cryptocurrency token's launch (bull vs bear market) impacts its long-term performance. It examines every token whose listing was announced on the Binance blog—including delisted ones—to avoid survivorship bias. Stablecoins and wrapped tokens are excluded. Dead tokens (delisted, no price data) are imputed as total losses. The verdict is data-driven (dynamic based on Mann-Whitney U test results).
+Timing the Market is a data research project (February 2025) analyzing whether the timing of a cryptocurrency token's launch (bull vs bear market) impacts its long-term performance. It examines every token whose listing was announced on the Binance blog—including delisted ones—to avoid survivorship bias. Stablecoins and wrapped tokens are excluded. Dead tokens (delisted, no price data) are imputed as total losses. The verdict is data-driven (dynamic based on Mann-Whitney U test results).
 
 Two main components:
 - **`pipeline/`** — Python data collection & statistical analysis
@@ -63,7 +63,7 @@ npm run start
 Binance CMS API → collect_binance.py → CoinGecko API enrichment
     → pipeline/data/processed/*.json
     → run_analysis.py (metrics + stats)
-    → website/public/data/*.json (tokens, summary_stats, market_cycles, btc_history, sensitivity)
+    → website/public/data/*.json (tokens, summary_stats, market_cycles, btc_history, sensitivity, ma_robustness)
     → next build (static site reads JSON at build time)
 ```
 
@@ -81,12 +81,12 @@ The pipeline exports JSON to `website/public/data/`, and the website imports it 
 | `data_fetcher.py` | CoinGecko API client with file-based caching & rate limiting |
 | `data_collector.py` | Alternative: top-N by market cap (survivorship bias) |
 | `metrics.py` | ROI, CAGR (365d min), drawdown_from_ath, geometric BTC-relative |
-| `analyzer.py` | Filtering, dead token imputation, Mann-Whitney U, bootstrap CI, effect sizes, sensitivity analysis |
-| `exporter.py` | NaN/Infinity sanitization, exports JSON + sensitivity.json |
+| `analyzer.py` | Filtering, dead token imputation, Mann-Whitney U, bootstrap CI, effect sizes, sensitivity analysis, MA robustness |
+| `exporter.py` | NaN/Infinity sanitization, exports JSON (tokens, summary, cycles, btc_history, sensitivity, ma_robustness) |
 
 ### Website (`website/src/`)
 
-- **App Router pages**: `app/page.tsx` (overview/verdict), `app/explorer/page.tsx` (token table), `app/analysis/page.tsx` (charts & stats), `app/methodology/page.tsx`
+- **App Router pages**: `app/page.tsx` (overview/verdict), `app/explorer/page.tsx` (token table), `app/analysis/page.tsx` (charts, stats, anchoring, MA robustness), `app/methodology/page.tsx`
 - **Charts** (`components/charts/`): Recharts-based — MarketCycleChart (BTC timeline + launch scatter), LaunchDistribution, ROIComparison, SurvivalRateChart
 - **Tables** (`components/tables/TokenTable.tsx`): TanStack Table with sort/filter/pagination
 - **Data layer**: `data.ts` imports JSON, `types.ts` defines TypeScript interfaces matching Python Pydantic models
@@ -100,7 +100,7 @@ The pipeline exports JSON to `website/public/data/`, and the website imports it 
 - **Metric names**: `drawdown_from_ath` (not max_drawdown), `fraction_currently_top100` (not survival_rate), `median_drawdown` (not avg).
 - **CAGR threshold**: Annualized ROI only computed for tokens >365 days old.
 - **BTC-relative**: Geometric excess return `(1+token)/(1+btc)-1`, not arithmetic difference.
-- **Statistical tests**: Mann-Whitney U only (no t-test). Bootstrap 95% CI for median difference. Rank-biserial effect size. Min 20 per group.
+- **Statistical tests**: Mann-Whitney U only (no t-test). Bootstrap 95% CI for median difference. Rank-biserial effect size. Min 20 per group. Sensitivity analysis (boundary shifts) and MA robustness check (BTC SMA regime classification).
 - **File-based API caching**: All CoinGecko responses cached in `pipeline/data/raw/` (gitignored) to avoid redundant requests and respect rate limits.
 - **Shared schema**: Python Pydantic models and TypeScript interfaces must stay in sync (`models.py` ↔ `types.ts`).
 - **Static site**: Website has no server-side data fetching. All data baked in at build time from `public/data/`.

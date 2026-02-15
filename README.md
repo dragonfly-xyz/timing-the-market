@@ -4,7 +4,7 @@
 
 No. There is no statistically significant difference.
 
-Live site: [timing-the-market](https://github.com/dragonfly-xyz/timing-the-market)
+Analysis date: February 2025
 
 ## Key Findings
 
@@ -13,7 +13,10 @@ Live site: [timing-the-market](https://github.com/dragonfly-xyz/timing-the-marke
 - **Effect size: -0.04** (rank-biserial correlation) — negligible
 - **95% CI for median difference: [-13.2%, +11.2%]** — straddles zero
 - Median annualized ROI: **-57.6%** (bull-launched) vs **-53.9%** (bear-launched) — both terrible, no meaningful difference
-- Result holds across all sensitivity checks (shifting cycle boundaries by +/- 1-2 months)
+- Result holds across all robustness checks:
+  - Shifting cycle boundaries by +/- 1-2 months (sensitivity analysis)
+  - Replacing hand-labeled cycles with BTC moving average regime classification (50/100/200/300-day SMA windows)
+- **Anchoring analysis**: Bear tokens actually launched at somewhat higher median market caps — no evidence of persistent bull-market valuation premium
 - 19 stablecoins and 3 wrapped tokens excluded from analysis
 
 ## Methodology
@@ -45,7 +48,9 @@ Live site: [timing-the-market](https://github.com/dragonfly-xyz/timing-the-marke
 - **Mann-Whitney U test** (non-parametric, no normality assumption)
 - **Bootstrap 95% confidence interval** for median difference (10,000 iterations)
 - **Rank-biserial effect size** for practical magnitude
-- **Sensitivity analysis** with shifted cycle boundaries
+- **Sensitivity analysis** with shifted cycle boundaries (+/- 1-2 months)
+- **MA robustness check**: BTC N-day SMA regime classification (50/100/200/300-day windows) as alternative to hand-labeled cycles
+- **Anchoring analysis**: Compares launch-day market caps, FDV proxies, and current market caps between groups
 - **Minimum 20 tokens per group** required for testing
 - **Annualized ROI (CAGR)** only computed for tokens > 365 days old
 - **BTC-relative ROI**: Geometric excess return `(1+token)/(1+btc)-1`
