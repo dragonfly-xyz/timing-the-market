@@ -240,6 +240,18 @@ export default function Home() {
               losses (no price data available)
             </li>
           )}
+          <li>
+            This study measures percentage returns (ROI), not absolute valuations.
+            If bull-market tokens launch at higher FDVs and percentage ROI is
+            equivalent, they would maintain higher absolute dollar valuations&mdash;an
+            anchoring effect. However, current market caps show no significant
+            difference between bull and bear groups, suggesting the launch-day
+            premium does not persist. See the{" "}
+            <a href="/analysis#anchoring" className="text-accent hover:underline">
+              anchoring analysis
+            </a>{" "}
+            for details.
+          </li>
         </ul>
       </section>
 

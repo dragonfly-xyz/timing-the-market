@@ -14,6 +14,22 @@ function fmtPct(n: number | null | undefined): string {
   return `${(n * 100).toFixed(1)}%`;
 }
 
+function fmtUsd(n: number): string {
+  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6) return `$${(n / 1e6).toFixed(1)}M`;
+  if (n >= 1e3) return `$${(n / 1e3).toFixed(0)}K`;
+  return `$${n.toFixed(0)}`;
+}
+
+function median(arr: number[]): number {
+  if (arr.length === 0) return 0;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid];
+}
+
 function effectSizeLabel(r: number | null | undefined): string {
   if (r == null) return "\u2014";
   const abs = Math.abs(r);
@@ -23,7 +39,36 @@ function effectSizeLabel(r: number | null | undefined): string {
   return "large";
 }
 
+function computeAnchoringStats() {
+  const bull = tokens.filter(
+    (t) => t.cycle_type === "Bull" && t.market_cap != null
+  );
+  const bear = tokens.filter(
+    (t) => t.cycle_type === "Bear" && t.market_cap != null
+  );
+
+  const bullMcaps = bull.map((t) => t.market_cap!);
+  const bearMcaps = bear.map((t) => t.market_cap!);
+
+  const bullRanks = bull
+    .filter((t) => t.market_cap_rank != null)
+    .map((t) => t.market_cap_rank!);
+  const bearRanks = bear
+    .filter((t) => t.market_cap_rank != null)
+    .map((t) => t.market_cap_rank!);
+
+  return {
+    bullMedianMcap: median(bullMcaps),
+    bearMedianMcap: median(bearMcaps),
+    bullMedianRank: median(bullRanks),
+    bearMedianRank: median(bearRanks),
+    bullN: bullMcaps.length,
+    bearN: bearMcaps.length,
+  };
+}
+
 export default function AnalysisPage() {
+  const anchoring = computeAnchoringStats();
   return (
     <div className="space-y-16">
       <div>
@@ -176,6 +221,73 @@ export default function AnalysisPage() {
           </p>
         </section>
       )}
+
+      {/* Anchoring Analysis */}
+      <section id="anchoring" className="bg-surface border border-edge p-8">
+        <h2 className="font-primary text-xl font-bold tracking-[-1px] mb-3">
+          Anchoring Analysis
+        </h2>
+        <p className="text-dim text-sm mb-2">
+          A natural objection: if bull-market tokens launch at higher FDVs and
+          ROI is equivalent, they would maintain higher absolute dollar
+          valuations. Does the launch-day premium persist?
+        </p>
+        <p className="text-dim text-sm mb-6">
+          We test this by comparing current market capitalizations and rankings
+          between bull and bear groups. If anchoring holds, bull tokens should
+          have significantly higher current market caps.
+        </p>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div>
+            <p className="text-faint text-xs font-mono uppercase">
+              Bull median market cap
+            </p>
+            <p className="font-mono text-lg font-bold mt-1 text-bull">
+              {fmtUsd(anchoring.bullMedianMcap)}
+            </p>
+            <p className="text-faint text-xs mt-0.5">n={anchoring.bullN}</p>
+          </div>
+          <div>
+            <p className="text-faint text-xs font-mono uppercase">
+              Bear median market cap
+            </p>
+            <p className="font-mono text-lg font-bold mt-1 text-bear">
+              {fmtUsd(anchoring.bearMedianMcap)}
+            </p>
+            <p className="text-faint text-xs mt-0.5">n={anchoring.bearN}</p>
+          </div>
+          <div>
+            <p className="text-faint text-xs font-mono uppercase">
+              Bull median rank
+            </p>
+            <p className="font-mono text-lg font-bold mt-1 text-bull">
+              #{Math.round(anchoring.bullMedianRank)}
+            </p>
+          </div>
+          <div>
+            <p className="text-faint text-xs font-mono uppercase">
+              Bear median rank
+            </p>
+            <p className="font-mono text-lg font-bold mt-1 text-bear">
+              #{Math.round(anchoring.bearMedianRank)}
+            </p>
+          </div>
+        </div>
+
+        <p className="text-dim text-sm">
+          Current market capitalizations and rankings show no significant
+          difference between bull and bear groups. The anchoring hypothesis
+          predicts bull tokens should have higher absolute valuations&mdash;they
+          do not. This suggests that any launch-day FDV premium from bull-market
+          conditions does not persist over time.
+        </p>
+        <p className="text-faint text-xs mt-4 font-mono">
+          Caveat: launch-day FDV data is not available from CoinGecko to test
+          the anchoring decomposition directly. Current market cap is the best
+          available proxy for the endpoint of the anchoring hypothesis.
+        </p>
+      </section>
 
       {/* Sensitivity Analysis */}
       {sensitivity.length > 0 && (
