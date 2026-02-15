@@ -156,9 +156,12 @@ def collect_binance_tokens(
                 mcaps = chart.get("market_caps", [])
                 if mcaps:
                     lmc = _price_at_date(mcaps, launch_d)
-                    # CoinGecko reports $0 market cap for first few days; treat as missing
                     if lmc and lmc > 0:
                         launch_market_cap = lmc
+                    else:
+                        # CoinGecko reports $0 market cap for first few days;
+                        # scan forward for first non-zero value within 30 days
+                        launch_market_cap = _first_nonzero_after(mcaps, launch_d, max_days=30)
             except Exception as e:
                 print(f"    Warning: chart fetch failed: {e}")
 
@@ -251,6 +254,19 @@ def _build_coingecko_map(cg: CoinGeckoFetcher) -> dict[str, str]:
 
     print(f"  Built mapping for {len(symbol_map)} symbols from CoinGecko")
     return symbol_map
+
+
+def _first_nonzero_after(series: list, target: date, max_days: int = 30) -> Optional[float]:
+    """Find the first non-zero value on or after target date, within max_days."""
+    for ts_ms, value in series:
+        d = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc).date()
+        if d < target:
+            continue
+        if (d - target).days > max_days:
+            break
+        if value and value > 0:
+            return value
+    return None
 
 
 def _price_at_date(prices: list, target: date) -> Optional[float]:
