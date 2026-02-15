@@ -33,7 +33,7 @@ def _validate_tokens(tokens: list[dict]) -> list[dict]:
     return validated
 
 
-def export_for_website(tokens: list[dict], summary: SummaryStats, sensitivity: list[dict] | None = None):
+def export_for_website(tokens: list[dict], summary: SummaryStats, sensitivity: list[dict] | None = None, ma_robustness: list[dict] | None = None):
     """Export all computed data as JSON files for the Next.js website."""
 
     # 1. tokens.json — validate through Pydantic model, then sanitize
@@ -70,3 +70,9 @@ def export_for_website(tokens: list[dict], summary: SummaryStats, sensitivity: l
         sensitivity_path = WEBSITE_DATA_DIR / "sensitivity.json"
         sensitivity_path.write_text(json.dumps(_sanitize(sensitivity), indent=2))
         print(f"Exported sensitivity analysis to {sensitivity_path}")
+
+    # 6. ma_robustness.json — moving average regime classification robustness
+    if ma_robustness is not None:
+        ma_path = WEBSITE_DATA_DIR / "ma_robustness.json"
+        ma_path.write_text(json.dumps(_sanitize(ma_robustness), indent=2))
+        print(f"Exported MA robustness analysis to {ma_path}")

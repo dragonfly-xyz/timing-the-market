@@ -6,7 +6,7 @@ sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent.parent))
 
 from src.config import PROCESSED_DIR
 from src.metrics import compute_metrics
-from src.analyzer import compute_summary, compute_sensitivity, _filter_tokens
+from src.analyzer import compute_summary, compute_sensitivity, compute_ma_robustness, _filter_tokens
 from src.exporter import export_for_website
 
 
@@ -28,10 +28,18 @@ def main():
     print("Computing sensitivity analysis...")
     sensitivity = compute_sensitivity(tokens)
 
+    # MA robustness check (requires BTC price history)
+    btc_chart_path = PROCESSED_DIR / "btc_chart.json"
+    ma_robustness = None
+    if btc_chart_path.exists():
+        print("Computing MA robustness analysis...")
+        btc_data = json.loads(btc_chart_path.read_text())
+        ma_robustness = compute_ma_robustness(tokens, btc_data.get("prices", []))
+
     # Filter stablecoins/wrapped from the export so they don't appear in the table
     export_tokens, _, _ = _filter_tokens(tokens)
     print("Exporting for website...")
-    export_for_website(export_tokens, summary, sensitivity)
+    export_for_website(export_tokens, summary, sensitivity, ma_robustness)
 
     # Print key findings
     print("\n=== Key Findings ===")
@@ -66,6 +74,13 @@ def main():
         sig = "SIGNIFICANT" if s["significant"] else "not significant"
         p_str = f"p={s['pvalue']:.4f}" if s['pvalue'] is not None else "insufficient data"
         print(f"  Shift {s['shift_months']:+d}mo: {p_str} ({sig}) [bull={s['bull_n']}, bear={s['bear_n']}]")
+
+    if ma_robustness:
+        print(f"\n--- MA Robustness ---")
+        for r in ma_robustness:
+            sig = "SIGNIFICANT" if r["significant"] else "not significant"
+            p_str = f"p={r['pvalue']:.4f}" if r['pvalue'] is not None else "insufficient data"
+            print(f"  {r['window']}d MA: {p_str} ({sig}) [bull={r['bull_n']}, bear={r['bear_n']}]")
 
     print("\nDone.")
 

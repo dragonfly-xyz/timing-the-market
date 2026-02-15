@@ -294,6 +294,89 @@ def compute_sensitivity(tokens: list[dict]) -> list[dict]:
     return results
 
 
+def compute_ma_robustness(tokens: list[dict], btc_prices: list) -> list[dict]:
+    """Test robustness using BTC moving average regime classification.
+
+    Instead of hand-labeled cycles, classifies bull/bear by whether BTC was
+    above/below its N-day SMA at each token's launch date.
+    Returns results for multiple MA windows.
+    """
+    from datetime import datetime, timezone, timedelta
+
+    tokens, _, _ = _filter_tokens(tokens)
+    _impute_dead_tokens(tokens)
+
+    # Build daily BTC price dict from [timestamp_ms, price] pairs
+    btc_daily = {}
+    for ts_ms, price in btc_prices:
+        d = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc).date()
+        btc_daily[d] = price
+    sorted_dates = sorted(btc_daily.keys())
+    prices_list = [btc_daily[d] for d in sorted_dates]
+
+    results = []
+    for window in [50, 100, 200, 300]:
+        # Compute SMA
+        sma = {}
+        for i, d in enumerate(sorted_dates):
+            if i >= window - 1:
+                w = prices_list[i - window + 1:i + 1]
+                sma[d] = sum(w) / len(w)
+
+        bull_rois = []
+        bear_rois = []
+        for t in tokens:
+            launch_str = t.get("launch_date")
+            ann_roi = t.get("annualized_roi")
+            if not launch_str or ann_roi is None or not math.isfinite(ann_roi):
+                continue
+
+            ld = date.fromisoformat(launch_str)
+            # Find closest date with SMA data
+            if ld not in sma:
+                found = False
+                for offset in range(1, 8):
+                    for candidate in [ld + timedelta(days=offset), ld - timedelta(days=offset)]:
+                        if candidate in sma:
+                            ld = candidate
+                            found = True
+                            break
+                    if found:
+                        break
+                if not found:
+                    continue
+
+            btc_price = btc_daily.get(ld)
+            ma = sma.get(ld)
+            if btc_price is None or ma is None:
+                continue
+
+            if btc_price > ma:
+                bull_rois.append(ann_roi)
+            else:
+                bear_rois.append(ann_roi)
+
+        p_value = None
+        effect_size = None
+        if len(bull_rois) >= MIN_SAMPLE_SIZE and len(bear_rois) >= MIN_SAMPLE_SIZE:
+            u_stat, p_value = stats.mannwhitneyu(
+                bull_rois, bear_rois, alternative="two-sided"
+            )
+            p_value = float(p_value)
+            effect_size = _rank_biserial(u_stat, len(bull_rois), len(bear_rois))
+
+        results.append({
+            "window": window,
+            "pvalue": p_value,
+            "effect_size": effect_size,
+            "bull_n": len(bull_rois),
+            "bear_n": len(bear_rois),
+            "significant": p_value is not None and p_value < 0.05,
+        })
+
+    return results
+
+
 def _summary_token(t: dict) -> dict:
     return {
         "id": t["id"],

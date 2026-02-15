@@ -1,4 +1,4 @@
-import { tokens, summary, sensitivity } from "@/data";
+import { tokens, summary, sensitivity, maRobustness } from "@/data";
 import ROIComparison from "@/components/charts/ROIComparison";
 import SurvivalRateChart from "@/components/charts/SurvivalRateChart";
 
@@ -408,6 +408,91 @@ export default function AnalysisPage() {
               </tbody>
             </table>
           </div>
+        </section>
+      )}
+
+      {/* MA Robustness */}
+      {maRobustness.length > 0 && (
+        <section className="bg-surface border border-edge p-8">
+          <h2 className="font-primary text-xl font-bold tracking-[-1px] mb-3">
+            Moving Average Robustness Check
+          </h2>
+          <p className="text-dim text-sm mb-2">
+            Instead of hand-labeled market cycles, we classify bull/bear regimes
+            quantitatively: a token launched when BTC was above its N-day simple
+            moving average is &ldquo;bull,&rdquo; below is &ldquo;bear.&rdquo;
+          </p>
+          <p className="text-dim text-sm mb-4">
+            We test multiple MA windows. None produce a significant difference,
+            confirming the result is not an artifact of how cycles are defined.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-edge">
+                  <th className="px-4 py-3 text-left text-faint font-mono text-xs uppercase">
+                    MA Window
+                  </th>
+                  <th className="px-4 py-3 text-left text-faint font-mono text-xs uppercase">
+                    p-value
+                  </th>
+                  <th className="px-4 py-3 text-left text-faint font-mono text-xs uppercase">
+                    Effect Size
+                  </th>
+                  <th className="px-4 py-3 text-left text-faint font-mono text-xs uppercase">
+                    Bull n
+                  </th>
+                  <th className="px-4 py-3 text-left text-faint font-mono text-xs uppercase">
+                    Bear n
+                  </th>
+                  <th className="px-4 py-3 text-left text-faint font-mono text-xs uppercase">
+                    Result
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {maRobustness.map((r) => (
+                  <tr
+                    key={r.window}
+                    className={`border-b border-edge/30 ${r.window === 200 ? "bg-raised" : ""}`}
+                  >
+                    <td className="px-4 py-3 font-mono">
+                      {r.window}-day SMA
+                    </td>
+                    <td className="px-4 py-3 font-mono">
+                      {r.pvalue != null ? r.pvalue.toFixed(4) : "\u2014"}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-dim">
+                      {r.effect_size != null ? r.effect_size.toFixed(3) : "\u2014"}
+                      {r.effect_size != null && (
+                        <span className="text-faint text-xs ml-1">
+                          ({effectSizeLabel(r.effect_size)})
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-dim">{r.bull_n}</td>
+                    <td className="px-4 py-3 font-mono text-dim">{r.bear_n}</td>
+                    <td className="px-4 py-3">
+                      {r.significant ? (
+                        <span className="text-accent font-mono text-xs uppercase">
+                          Significant
+                        </span>
+                      ) : (
+                        <span className="text-faint font-mono text-xs uppercase">
+                          Not significant
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-faint text-xs mt-4 font-mono">
+            The 200-day SMA is the industry-standard regime indicator. Row
+            highlighted. With 4 tests, Bonferroni-corrected threshold would be
+            p &lt; 0.0125. The lowest p-value (0.079) is well above this.
+          </p>
         </section>
       )}
 

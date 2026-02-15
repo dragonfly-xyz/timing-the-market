@@ -91,5 +91,14 @@ export interface SensitivityResult {
   significant: boolean;
 }
 
+export interface MARobustnessResult {
+  window: number;
+  pvalue: number | null;
+  effect_size: number | null;
+  bull_n: number;
+  bear_n: number;
+  significant: boolean;
+}
+
 // BTC history is [timestamp_ms, price][]
 export type BTCHistory = [number, number][];
