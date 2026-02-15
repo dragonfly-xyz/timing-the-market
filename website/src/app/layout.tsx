@@ -3,9 +3,25 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://timing-tokens.dragonfly.xyz"),
   title: "Timing the Token Market",
   description:
-    "Does it matter when you launch your token? Analysis of every token announced on the Binance blog.",
+    "Does it matter when you launch your token? An analysis of 203 tokens announced on the Binance blog finds no statistically significant difference between bull and bear market launches.",
+  openGraph: {
+    title: "Timing the Token Market",
+    description:
+      "Does it matter when you launch your token? An analysis of 203 tokens finds no significant difference between bull and bear market launches.",
+    images: [{ url: "/images/og.png", width: 1200, height: 630 }],
+    type: "website",
+    siteName: "Dragonfly Research",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Timing the Token Market",
+    description:
+      "Does it matter when you launch your token? An analysis of 203 tokens finds no significant difference between bull and bear market launches.",
+    images: ["/images/og.png"],
+  },
 };
 
 function Nav() {
