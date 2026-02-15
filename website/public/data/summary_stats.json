@@ -1,49 +1,61 @@
 {
-  "total_tokens": 203,
-  "tokens_with_launch_date": 203,
+  "total_tokens": 202,
+  "tokens_with_launch_date": 202,
   "tokens_by_cycle_type": {
-    "Bear": 56,
-    "Bull": 127,
-    "Neutral": 20
+    "Bear": 52,
+    "Bull": 132,
+    "Neutral": 18
   },
   "median_roi_by_cycle_type": {
-    "Bear": -0.9452437862120344,
-    "Bull": -0.9474727171139699,
-    "Neutral": -0.8162636734498229
+    "Bear": -0.9539221813918735,
+    "Bull": -0.9443422838525776,
+    "Neutral": -0.8334896008673318
   },
   "median_annualized_roi_by_cycle_type": {
-    "Bear": -0.5388199185469076,
-    "Bull": -0.5760940116850023,
-    "Neutral": -0.39766215100011315
+    "Bear": -0.5979258826518037,
+    "Bull": -0.572688094506647,
+    "Neutral": -0.3975343236209685
   },
   "median_roi_vs_btc_by_cycle_type": {
-    "Bear": -0.9592707379470689,
-    "Bull": -0.953785406732506,
+    "Bear": -0.9638013199047224,
+    "Bull": -0.9455721216168324,
     "Neutral": -0.9597410915140213
   },
   "fraction_currently_top100_by_cycle_type": {
-    "Bear": 0.08928571428571429,
-    "Bull": 0.09448818897637795,
-    "Neutral": 0.25
+    "Bear": 0.07692307692307693,
+    "Bull": 0.09848484848484848,
+    "Neutral": 0.2777777777777778
   },
   "median_drawdown_by_cycle_type": {
-    "Bear": 0.969101359223301,
-    "Bull": 0.9796602459016394,
-    "Neutral": 0.9633146656321758
+    "Bear": 0.9781574094201628,
+    "Bull": 0.9799731465517242,
+    "Neutral": 0.9657840715502555
   },
   "delist_rate_by_cycle_type": {
-    "Bear": 0.125,
-    "Bull": 0.16535433070866143,
+    "Bear": 0.1346153846153846,
+    "Bull": 0.15151515151515152,
     "Neutral": 0.0
   },
   "best_performers": [
+    {
+      "id": "quant-network",
+      "symbol": "qnt",
+      "name": "Quant",
+      "cycle_type": "Bear",
+      "cycle_name": "2018-2019 Bear",
+      "annualized_roi": 0.8742335026132868,
+      "roi_since_launch": 120.75477425487063,
+      "roi_vs_btc": 9.847048987696859,
+      "market_cap_rank": 66,
+      "binance_delisted": false
+    },
     {
       "id": "neiro-3",
       "symbol": "neiro",
       "name": "First Neiro on Ethereum",
       "cycle_type": "Bull",
       "cycle_name": "2023-2025 Bull",
-      "annualized_roi": 0.6320667349782232,
+      "annualized_roi": 0.630521116765238,
       "roi_since_launch": 0.9977514102279819,
       "roi_vs_btc": 0.7109497825135371,
       "market_cap_rank": 613,
@@ -55,10 +67,22 @@
       "name": "Dogecoin",
       "cycle_type": "Bull",
       "cycle_name": "2013 Bull (Fall)",
-      "annualized_roi": 0.3198307698626388,
-      "roi_since_launch": 28.420925860920782,
-      "roi_vs_btc": -0.6837904553149996,
+      "annualized_roi": 0.52602466500311,
+      "roi_since_launch": 171.7490085472533,
+      "roi_vs_btc": 0.8566677879457669,
       "market_cap_rank": 9,
+      "binance_delisted": false
+    },
+    {
+      "id": "decred",
+      "symbol": "dcr",
+      "name": "Decred",
+      "cycle_type": "Bull",
+      "cycle_name": "2016-2017 Bull",
+      "annualized_roi": 0.38456836532219363,
+      "roi_since_launch": 25.064282807432672,
+      "roi_vs_btc": -0.8600914049167822,
+      "market_cap_rank": 108,
       "binance_delisted": false
     },
     {
@@ -67,7 +91,7 @@
       "name": "Pepe",
       "cycle_type": "Neutral",
       "cycle_name": "2023 Recovery",
-      "annualized_roi": 0.2691586728360722,
+      "annualized_roi": 0.26886125506126124,
       "roi_since_launch": 0.9406433418318842,
       "roi_vs_btc": -0.19033790699309217,
       "market_cap_rank": 48,
@@ -79,22 +103,10 @@
       "name": "Trust Wallet Token",
       "cycle_type": "Bull",
       "cycle_name": "2020-2021 Bull",
-      "annualized_roi": 0.2400228031006093,
+      "annualized_roi": 0.23987822300998674,
       "roi_since_launch": 1.9627072880376149,
       "roi_vs_btc": 0.3961544907257799,
       "market_cap_rank": 170,
-      "binance_delisted": false
-    },
-    {
-      "id": "pendle",
-      "symbol": "pendle",
-      "name": "Pendle",
-      "cycle_type": "Neutral",
-      "cycle_name": "2023 Recovery",
-      "annualized_roi": 0.12073386316979184,
-      "roi_since_launch": 0.3480395504015635,
-      "roi_vs_btc": -0.4039394015002269,
-      "market_cap_rank": 171,
       "binance_delisted": false
     },
     {
@@ -103,7 +115,7 @@
       "name": "Theta Fuel",
       "cycle_type": "Neutral",
       "cycle_name": "2019-2020 Recovery",
-      "annualized_roi": 0.09886441082477426,
+      "annualized_roi": 0.09882228151373873,
       "roi_since_launch": 0.8859882984809373,
       "roi_vs_btc": -0.7855494198288173,
       "market_cap_rank": 257,
@@ -115,34 +127,10 @@
       "name": "FLOKI",
       "cycle_type": "Neutral",
       "cycle_name": "2023 Recovery",
-      "annualized_roi": -0.016707130747495857,
+      "annualized_roi": -0.016690840757259684,
       "roi_since_launch": -0.0457848372586983,
       "roi_vs_btc": -0.6018888019295932,
       "market_cap_rank": 138,
-      "binance_delisted": false
-    },
-    {
-      "id": "quant-network",
-      "symbol": "qnt",
-      "name": "Quant",
-      "cycle_type": "Bear",
-      "cycle_name": "2018-2019 Bear",
-      "annualized_roi": -0.04129556295601766,
-      "roi_since_launch": -0.2754859319662799,
-      "roi_vs_btc": -0.9354535406407448,
-      "market_cap_rank": 66,
-      "binance_delisted": false
-    },
-    {
-      "id": "decred",
-      "symbol": "dcr",
-      "name": "Decred",
-      "cycle_type": "Bull",
-      "cycle_name": "2016-2017 Bull",
-      "annualized_roi": -0.04425863165526078,
-      "roi_since_launch": -0.3645900939089836,
-      "roi_vs_btc": -0.996589228718858,
-      "market_cap_rank": 108,
       "binance_delisted": false
     },
     {
@@ -151,16 +139,28 @@
       "name": "Holo",
       "cycle_type": "Bear",
       "cycle_name": "2018-2019 Bear",
-      "annualized_roi": -0.06418017902629758,
+      "annualized_roi": -0.06415772032706168,
       "roi_since_launch": -0.3945497536107279,
       "roi_vs_btc": -0.9352360913449025,
       "market_cap_rank": 378,
+      "binance_delisted": false
+    },
+    {
+      "id": "everipedia",
+      "symbol": "iq",
+      "name": "Everipedia",
+      "cycle_type": "Bull",
+      "cycle_name": "2020-2021 Bull",
+      "annualized_roi": -0.0682194651362974,
+      "roi_since_launch": -0.32971790780583965,
+      "roi_vs_btc": -0.908257921198087,
+      "market_cap_rank": 611,
       "binance_delisted": false
     }
   ],
   "worst_performers": [
     {
-      "id": "auto",
+      "id": "binance-auto",
       "symbol": "auto",
       "name": "Auto",
       "cycle_type": "Bull",
@@ -172,7 +172,7 @@
       "binance_delisted": true
     },
     {
-      "id": "perpetual-protocol",
+      "id": "binance-perp",
       "symbol": "perp",
       "name": "Perpetual Protocol",
       "cycle_type": "Bull",
@@ -184,7 +184,7 @@
       "binance_delisted": true
     },
     {
-      "id": "linear",
+      "id": "binance-lina",
       "symbol": "lina",
       "name": "Linear",
       "cycle_type": "Bull",
@@ -196,7 +196,7 @@
       "binance_delisted": true
     },
     {
-      "id": "dforce-token",
+      "id": "binance-df",
       "symbol": "df",
       "name": "Force",
       "cycle_type": "Bull",
@@ -208,7 +208,7 @@
       "binance_delisted": true
     },
     {
-      "id": "force-protocol",
+      "id": "binance-for",
       "symbol": "for",
       "name": "The Force Protocol",
       "cycle_type": "Bull",
@@ -220,7 +220,7 @@
       "binance_delisted": true
     },
     {
-      "id": "powerpool-concentrated-voting-power",
+      "id": "binance-cvp",
       "symbol": "cvp",
       "name": "PowerPool",
       "cycle_type": "Bull",
@@ -232,7 +232,7 @@
       "binance_delisted": true
     },
     {
-      "id": "keep3rv1",
+      "id": "binance-kp3r",
       "symbol": "kp3r",
       "name": "Keep3rV1",
       "cycle_type": "Bull",
@@ -244,7 +244,7 @@
       "binance_delisted": true
     },
     {
-      "id": "akropolis",
+      "id": "binance-akro",
       "symbol": "akro",
       "name": "Akropolis",
       "cycle_type": "Bull",
@@ -256,7 +256,7 @@
       "binance_delisted": true
     },
     {
-      "id": "gochain",
+      "id": "binance-go",
       "symbol": "go",
       "name": "GoChain",
       "cycle_type": "Bear",
@@ -268,7 +268,7 @@
       "binance_delisted": true
     },
     {
-      "id": "nebulas",
+      "id": "binance-nas",
       "symbol": "nas",
       "name": "Nebulas",
       "cycle_type": "Bear",
@@ -280,19 +280,19 @@
       "binance_delisted": true
     }
   ],
-  "bull_vs_bear_mannwhitney_pvalue": 0.6997488464545185,
-  "bull_vs_bear_effect_size": -0.04245283018867929,
-  "bull_vs_bear_median_diff": -0.03727409313809471,
-  "bull_vs_bear_ci_lower": -0.13154643131780802,
-  "bull_vs_bear_ci_upper": 0.11229445044370283,
-  "bull_n": 106,
-  "bear_n": 38,
-  "btc_rel_mannwhitney_pvalue": 0.6133872221539514,
-  "btc_rel_effect_size": 0.055775839280993944,
-  "btc_rel_median_diff": 0.00548533121456285,
-  "btc_rel_ci_lower": -0.026568409796562498,
-  "btc_rel_ci_upper": 0.03904946503920559,
-  "tokens_excluded_stablecoin": 19,
-  "tokens_excluded_wrapped": 3,
+  "bull_vs_bear_mannwhitney_pvalue": 0.8099987484699741,
+  "bull_vs_bear_effect_size": 0.02820282028202814,
+  "bull_vs_bear_median_diff": 0.025237788145156648,
+  "bull_vs_bear_ci_lower": -0.10856716733646987,
+  "bull_vs_bear_ci_upper": 0.1423068709516564,
+  "bull_n": 101,
+  "bear_n": 33,
+  "btc_rel_mannwhitney_pvalue": 0.3716757685432135,
+  "btc_rel_effect_size": 0.10524600847181498,
+  "btc_rel_median_diff": 0.018229198287890047,
+  "btc_rel_ci_lower": -0.016775240611413444,
+  "btc_rel_ci_upper": 0.051308580113958335,
+  "tokens_excluded_stablecoin": 17,
+  "tokens_excluded_wrapped": 6,
   "tokens_imputed_dead": 18
 }

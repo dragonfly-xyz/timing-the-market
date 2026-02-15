@@ -10,6 +10,8 @@ export interface Token {
   image: string | null;
   launch_date: string | null;
   launch_price: number | null;
+  launch_market_cap: number | null;
+  total_supply: number | null;
   launch_source: string | null;
   categories: string[];
   category: string | null;

@@ -117,6 +117,8 @@ def collect_binance_tokens(
         atl = None
         image = None
         launch_price = None
+        launch_market_cap = None
+        total_supply = None
         categories = []
         category = None
         genesis_date_str = None
@@ -144,12 +146,16 @@ def collect_binance_tokens(
             except Exception as e:
                 print(f"    Warning: detail fetch failed: {e}")
 
-            # Fetch market chart for launch price
+            # Fetch market chart for launch price and launch market cap
             try:
                 chart = coingecko.get_market_chart(cg_id)
+                launch_d = date.fromisoformat(launch_date)
                 prices = chart.get("prices", [])
                 if prices:
-                    launch_price = _price_at_date(prices, date.fromisoformat(launch_date))
+                    launch_price = _price_at_date(prices, launch_d)
+                mcaps = chart.get("market_caps", [])
+                if mcaps:
+                    launch_market_cap = _price_at_date(mcaps, launch_d)
             except Exception as e:
                 print(f"    Warning: chart fetch failed: {e}")
 
@@ -162,6 +168,7 @@ def collect_binance_tokens(
                 ath = market_info.get("ath")
                 atl = market_info.get("atl")
                 image = market_info.get("image")
+                total_supply = market_info.get("total_supply")
         else:
             print(f"    No CoinGecko match found")
 
@@ -177,6 +184,8 @@ def collect_binance_tokens(
             "image": image,
             "launch_date": launch_date,
             "launch_price": launch_price,
+            "launch_market_cap": launch_market_cap,
+            "total_supply": total_supply,
             "launch_source": launch_source,
             "categories": categories,
             "category": _classify_category(categories, symbol=sym),

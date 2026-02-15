@@ -40,30 +40,50 @@ function effectSizeLabel(r: number | null | undefined): string {
 }
 
 function computeAnchoringStats() {
-  const bull = tokens.filter(
+  const bullCurrent = tokens.filter(
     (t) => t.cycle_type === "Bull" && t.market_cap != null
   );
-  const bear = tokens.filter(
+  const bearCurrent = tokens.filter(
     (t) => t.cycle_type === "Bear" && t.market_cap != null
   );
 
-  const bullMcaps = bull.map((t) => t.market_cap!);
-  const bearMcaps = bear.map((t) => t.market_cap!);
+  const bullLaunch = tokens.filter(
+    (t) => t.cycle_type === "Bull" && t.launch_market_cap != null
+  );
+  const bearLaunch = tokens.filter(
+    (t) => t.cycle_type === "Bear" && t.launch_market_cap != null
+  );
 
-  const bullRanks = bull
-    .filter((t) => t.market_cap_rank != null)
-    .map((t) => t.market_cap_rank!);
-  const bearRanks = bear
-    .filter((t) => t.market_cap_rank != null)
-    .map((t) => t.market_cap_rank!);
+  const bullFdv = tokens.filter(
+    (t) =>
+      t.cycle_type === "Bull" &&
+      t.launch_price != null &&
+      t.total_supply != null
+  );
+  const bearFdv = tokens.filter(
+    (t) =>
+      t.cycle_type === "Bear" &&
+      t.launch_price != null &&
+      t.total_supply != null
+  );
 
   return {
-    bullMedianMcap: median(bullMcaps),
-    bearMedianMcap: median(bearMcaps),
-    bullMedianRank: median(bullRanks),
-    bearMedianRank: median(bearRanks),
-    bullN: bullMcaps.length,
-    bearN: bearMcaps.length,
+    bullMedianLaunchMcap: median(bullLaunch.map((t) => t.launch_market_cap!)),
+    bearMedianLaunchMcap: median(bearLaunch.map((t) => t.launch_market_cap!)),
+    bullLaunchN: bullLaunch.length,
+    bearLaunchN: bearLaunch.length,
+    bullMedianFdv: median(
+      bullFdv.map((t) => t.launch_price! * t.total_supply!)
+    ),
+    bearMedianFdv: median(
+      bearFdv.map((t) => t.launch_price! * t.total_supply!)
+    ),
+    bullFdvN: bullFdv.length,
+    bearFdvN: bearFdv.length,
+    bullMedianCurrentMcap: median(bullCurrent.map((t) => t.market_cap!)),
+    bearMedianCurrentMcap: median(bearCurrent.map((t) => t.market_cap!)),
+    bullCurrentN: bullCurrent.length,
+    bearCurrentN: bearCurrent.length,
   };
 }
 
@@ -233,59 +253,95 @@ export default function AnalysisPage() {
           valuations. Does the launch-day premium persist?
         </p>
         <p className="text-dim text-sm mb-6">
-          We test this by comparing current market capitalizations and rankings
-          between bull and bear groups. If anchoring holds, bull tokens should
-          have significantly higher current market caps.
+          We test this by comparing launch-day market caps, FDV proxies, and
+          current market caps between bull and bear groups.
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div>
-            <p className="text-faint text-xs font-mono uppercase">
-              Bull median market cap
-            </p>
-            <p className="font-mono text-lg font-bold mt-1 text-bull">
-              {fmtUsd(anchoring.bullMedianMcap)}
-            </p>
-            <p className="text-faint text-xs mt-0.5">n={anchoring.bullN}</p>
+        {/* Launch Market Cap */}
+        <div className="mb-6">
+          <p className="font-mono text-faint text-xs uppercase tracking-[0.15em] mb-3">
+            Launch-Day Circulating Market Cap
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="font-mono text-lg font-bold text-bull">
+                {fmtUsd(anchoring.bullMedianLaunchMcap)}
+              </p>
+              <p className="text-faint text-xs mt-0.5">
+                Bull median (n={anchoring.bullLaunchN})
+              </p>
+            </div>
+            <div>
+              <p className="font-mono text-lg font-bold text-bear">
+                {fmtUsd(anchoring.bearMedianLaunchMcap)}
+              </p>
+              <p className="text-faint text-xs mt-0.5">
+                Bear median (n={anchoring.bearLaunchN})
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-faint text-xs font-mono uppercase">
-              Bear median market cap
-            </p>
-            <p className="font-mono text-lg font-bold mt-1 text-bear">
-              {fmtUsd(anchoring.bearMedianMcap)}
-            </p>
-            <p className="text-faint text-xs mt-0.5">n={anchoring.bearN}</p>
+        </div>
+
+        {/* Launch FDV Proxy */}
+        <div className="border-t border-edge pt-6 mb-6">
+          <p className="font-mono text-faint text-xs uppercase tracking-[0.15em] mb-3">
+            Launch-Day FDV Proxy
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="font-mono text-lg font-bold text-bull">
+                {fmtUsd(anchoring.bullMedianFdv)}
+              </p>
+              <p className="text-faint text-xs mt-0.5">
+                Bull median (n={anchoring.bullFdvN})
+              </p>
+            </div>
+            <div>
+              <p className="font-mono text-lg font-bold text-bear">
+                {fmtUsd(anchoring.bearMedianFdv)}
+              </p>
+              <p className="text-faint text-xs mt-0.5">
+                Bear median (n={anchoring.bearFdvN})
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-faint text-xs font-mono uppercase">
-              Bull median rank
-            </p>
-            <p className="font-mono text-lg font-bold mt-1 text-bull">
-              #{Math.round(anchoring.bullMedianRank)}
-            </p>
-          </div>
-          <div>
-            <p className="text-faint text-xs font-mono uppercase">
-              Bear median rank
-            </p>
-            <p className="font-mono text-lg font-bold mt-1 text-bear">
-              #{Math.round(anchoring.bearMedianRank)}
-            </p>
+          <p className="text-faint text-xs mt-2 font-mono">
+            FDV proxy = launch price &times; current total supply (overestimates
+            launch FDV since supply grows over time)
+          </p>
+        </div>
+
+        {/* Current Market Cap */}
+        <div className="border-t border-edge pt-6 mb-6">
+          <p className="font-mono text-faint text-xs uppercase tracking-[0.15em] mb-3">
+            Current Market Cap
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="font-mono text-lg font-bold text-bull">
+                {fmtUsd(anchoring.bullMedianCurrentMcap)}
+              </p>
+              <p className="text-faint text-xs mt-0.5">
+                Bull median (n={anchoring.bullCurrentN})
+              </p>
+            </div>
+            <div>
+              <p className="font-mono text-lg font-bold text-bear">
+                {fmtUsd(anchoring.bearMedianCurrentMcap)}
+              </p>
+              <p className="text-faint text-xs mt-0.5">
+                Bear median (n={anchoring.bearCurrentN})
+              </p>
+            </div>
           </div>
         </div>
 
         <p className="text-dim text-sm">
-          Current market capitalizations and rankings show no significant
-          difference between bull and bear groups. The anchoring hypothesis
-          predicts bull tokens should have higher absolute valuations&mdash;they
-          do not. This suggests that any launch-day FDV premium from bull-market
-          conditions does not persist over time.
-        </p>
-        <p className="text-faint text-xs mt-4 font-mono">
-          Caveat: launch-day FDV data is not available from CoinGecko to test
-          the anchoring decomposition directly. Current market cap is the best
-          available proxy for the endpoint of the anchoring hypothesis.
+          The anchoring hypothesis assumes bull tokens launch at higher
+          valuations. The data shows the opposite: bear tokens launched at
+          somewhat higher market caps, and current market caps are nearly
+          identical. There is no evidence of a persistent launch-day valuation
+          premium from bull-market conditions.
         </p>
       </section>
 

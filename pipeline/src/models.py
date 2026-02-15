@@ -39,6 +39,8 @@ class TokenMetrics(BaseModel):
     # Launch info
     launch_date: Optional[str] = None  # ISO date string
     launch_price: Optional[float] = None
+    launch_market_cap: Optional[float] = None
+    total_supply: Optional[float] = None
     launch_source: Optional[str] = None  # "coingecko_genesis" or "binance_listing"
 
     # Cycle classification
