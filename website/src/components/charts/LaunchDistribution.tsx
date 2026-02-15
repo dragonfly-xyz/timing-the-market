@@ -22,7 +22,9 @@ const CYCLE_COLORS: Record<string, string> = {
 
 const CYCLE_ORDER = [
   "Pre-2013 Early",
-  "2013 Bull",
+  "2013 Bull (Spring)",
+  "2013 Correction",
+  "2013 Bull (Fall)",
   "2014-2015 Bear",
   "2015-2016 Recovery",
   "2016-2017 Bull",

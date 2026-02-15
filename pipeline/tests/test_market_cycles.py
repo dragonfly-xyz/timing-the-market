@@ -9,10 +9,22 @@ def test_bitcoin_genesis():
     assert get_cycle_name(d) == "Pre-2013 Early"
 
 
-def test_2013_bull():
-    d = date(2013, 6, 15)
+def test_2013_bull_spring():
+    d = date(2013, 3, 15)
     assert get_cycle_type(d) == "Bull"
-    assert get_cycle_name(d) == "2013 Bull"
+    assert get_cycle_name(d) == "2013 Bull (Spring)"
+
+
+def test_2013_correction():
+    d = date(2013, 6, 15)
+    assert get_cycle_type(d) == "Neutral"
+    assert get_cycle_name(d) == "2013 Correction"
+
+
+def test_2013_bull_fall():
+    d = date(2013, 11, 15)
+    assert get_cycle_type(d) == "Bull"
+    assert get_cycle_name(d) == "2013 Bull (Fall)"
 
 
 def test_2014_bear():
@@ -65,6 +77,12 @@ def test_boundary_2013_start():
 
 
 def test_boundary_2013_end():
-    # Dec 1, 2013 should be start of Bear
+    # Dec 1, 2013 should be in 2013 Bull (Fall); bear starts Jan 1, 2014
     d = date(2013, 12, 1)
+    assert get_cycle_type(d) == "Bull"
+
+
+def test_boundary_2014_bear_start():
+    # Jan 1, 2014 should be start of Bear
+    d = date(2014, 1, 1)
     assert get_cycle_type(d) == "Bear"

@@ -4,8 +4,10 @@ from typing import Optional
 
 MARKET_CYCLES = [
     {"name": "Pre-2013 Early", "start": None, "end": date(2013, 1, 1), "type": "Early"},
-    {"name": "2013 Bull", "start": date(2013, 1, 1), "end": date(2013, 12, 1), "type": "Bull"},
-    {"name": "2014-2015 Bear", "start": date(2013, 12, 1), "end": date(2015, 8, 1), "type": "Bear"},
+    {"name": "2013 Bull (Spring)", "start": date(2013, 1, 1), "end": date(2013, 5, 1), "type": "Bull"},
+    {"name": "2013 Correction", "start": date(2013, 5, 1), "end": date(2013, 10, 1), "type": "Neutral"},
+    {"name": "2013 Bull (Fall)", "start": date(2013, 10, 1), "end": date(2014, 1, 1), "type": "Bull"},
+    {"name": "2014-2015 Bear", "start": date(2014, 1, 1), "end": date(2015, 8, 1), "type": "Bear"},
     {"name": "2015-2016 Recovery", "start": date(2015, 8, 1), "end": date(2016, 1, 1), "type": "Neutral"},
     {"name": "2016-2017 Bull", "start": date(2016, 1, 1), "end": date(2018, 1, 1), "type": "Bull"},
     {"name": "2018-2019 Bear", "start": date(2018, 1, 1), "end": date(2018, 12, 1), "type": "Bear"},

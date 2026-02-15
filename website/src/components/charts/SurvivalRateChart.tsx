@@ -21,7 +21,7 @@ const CYCLE_COLORS: Record<string, string> = {
   Unknown: "#555555",
 };
 
-const CYCLE_TYPE_ORDER = ["Early", "Bull", "Bear", "Neutral"];
+const CYCLE_TYPE_ORDER = ["Bull", "Bear"];
 
 export default function SurvivalRateChart({
   summary,
@@ -37,15 +37,9 @@ export default function SurvivalRateChart({
     );
   }
 
-  const allTypes = Object.keys(survivalData);
-  const orderedTypes = [
-    ...CYCLE_TYPE_ORDER.filter((ct) => allTypes.includes(ct)),
-    ...allTypes.filter((ct) => !CYCLE_TYPE_ORDER.includes(ct)),
-  ];
+  const orderedTypes = CYCLE_TYPE_ORDER.filter((ct) => survivalData[ct] != null);
 
-  const chartData = orderedTypes
-    .filter((ct) => survivalData[ct] != null)
-    .map((ct) => ({
+  const chartData = orderedTypes.map((ct) => ({
       cycleType: ct,
       survivalRate: (survivalData[ct] as number) * 100,
     }));

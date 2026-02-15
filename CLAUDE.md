@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Timing the Market is a data research project analyzing whether the timing of a cryptocurrency token's launch (bull vs bear market) impacts its long-term performance. It examines every token listed on Binance spot markets—including delisted ones—to avoid survivorship bias. Stablecoins and wrapped tokens are excluded. Dead tokens (delisted, no price data) are imputed as total losses. The verdict is data-driven (dynamic based on Mann-Whitney U test results).
+Timing the Market is a data research project analyzing whether the timing of a cryptocurrency token's launch (bull vs bear market) impacts its long-term performance. It examines every token whose listing was announced on the Binance blog—including delisted ones—to avoid survivorship bias. Stablecoins and wrapped tokens are excluded. Dead tokens (delisted, no price data) are imputed as total losses. The verdict is data-driven (dynamic based on Mann-Whitney U test results).
 
 Two main components:
 - **`pipeline/`** — Python data collection & statistical analysis

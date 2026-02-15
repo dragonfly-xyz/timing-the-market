@@ -1,25 +1,25 @@
-# Timing the Market
+# Timing the Token Market
 
 **Does launching a token in a bull market vs a bear market predict its long-term performance?**
 
 No. There is no statistically significant difference.
 
-Live site: [timing-the-market](https://github.com/Haseeb-Qureshi/timing-the-market)
+Live site: [timing-the-market](https://github.com/dragonfly-xyz/timing-the-market)
 
 ## Key Findings
 
-- **203 tokens** analyzed across all Binance spot listings (including 18 delisted/dead tokens imputed as total losses)
-- **p-value: 0.48** (Mann-Whitney U test, bull vs bear launched tokens) — well above the 0.05 significance threshold
-- **Effect size: -0.08** (rank-biserial correlation) — negligible
-- **95% CI for median difference: [-14.4%, +10.7%]** — straddles zero
-- Median annualized ROI: **-57.9%** (bull-launched) vs **-52.7%** (bear-launched) — both terrible, no meaningful difference
+- **203 tokens** analyzed from Binance blog listing announcements (including 18 delisted/dead tokens imputed as total losses)
+- **p-value: 0.70** (Mann-Whitney U test, bull vs bear launched tokens) — well above the 0.05 significance threshold
+- **Effect size: -0.04** (rank-biserial correlation) — negligible
+- **95% CI for median difference: [-13.2%, +11.2%]** — straddles zero
+- Median annualized ROI: **-57.6%** (bull-launched) vs **-53.9%** (bear-launched) — both terrible, no meaningful difference
 - Result holds across all sensitivity checks (shifting cycle boundaries by +/- 1-2 months)
 - 19 stablecoins and 3 wrapped tokens excluded from analysis
 
 ## Methodology
 
 ### Data Collection
-- **Source**: Every token ever listed on Binance spot markets, scraped from Binance CMS API announcements
+- **Source**: Every token whose listing was announced on the Binance blog, scraped from Binance CMS API
 - **Enrichment**: CoinGecko API for price history, market data, genesis dates, and categorization
 - **Survivorship bias mitigation**: Includes delisted tokens (not just current top-N). Dead tokens (delisted, no price data) imputed as -100% ROI.
 - **Launch date**: Uses CoinGecko genesis date when earlier than Binance listing (e.g., DOGE genesis 2013 vs Binance listing 2019)
@@ -27,8 +27,10 @@ Live site: [timing-the-market](https://github.com/Haseeb-Qureshi/timing-the-mark
 ### Market Cycle Definitions
 | Cycle | Period | Type |
 |-------|--------|------|
-| 2013 Bull | Jan 2013 - Dec 2013 | Bull |
-| 2014-2015 Bear | Dec 2013 - Aug 2015 | Bear |
+| 2013 Bull (Spring) | Jan 2013 - May 2013 | Bull |
+| 2013 Correction | May 2013 - Oct 2013 | Neutral |
+| 2013 Bull (Fall) | Oct 2013 - Jan 2014 | Bull |
+| 2014-2015 Bear | Jan 2014 - Aug 2015 | Bear |
 | 2015-2016 Recovery | Aug 2015 - Jan 2016 | Neutral |
 | 2016-2017 Bull | Jan 2016 - Jan 2018 | Bull |
 | 2018-2019 Bear | Jan 2018 - Dec 2018 | Bear |

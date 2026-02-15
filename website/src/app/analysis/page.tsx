@@ -47,8 +47,8 @@ export default function AnalysisPage() {
             summaryMedians={summary.median_annualized_roi_by_cycle_type}
           />
         </div>
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
-          {(["Bull", "Bear", "Neutral", "Early"] as const).map((ct) => {
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          {(["Bull", "Bear"] as const).map((ct) => {
             const v = summary.median_annualized_roi_by_cycle_type[ct];
             return (
               <div key={ct} className="bg-surface border border-edge p-4">

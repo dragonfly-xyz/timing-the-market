@@ -17,10 +17,10 @@
   },
   {
     "shift_months": 0,
-    "pvalue": 0.4840931121588393,
-    "effect_size": -0.07619047619047614,
-    "bull_n": 105,
-    "bear_n": 39,
+    "pvalue": 0.6997488464545185,
+    "effect_size": -0.04245283018867929,
+    "bull_n": 106,
+    "bear_n": 38,
     "significant": false
   },
   {

@@ -2,38 +2,38 @@
   "total_tokens": 203,
   "tokens_with_launch_date": 203,
   "tokens_by_cycle_type": {
-    "Bear": 57,
-    "Bull": 126,
+    "Bear": 56,
+    "Bull": 127,
     "Neutral": 20
   },
   "median_roi_by_cycle_type": {
-    "Bear": -0.9418209762884504,
-    "Bull": -0.9487225393174086,
+    "Bear": -0.9452437862120344,
+    "Bull": -0.9474727171139699,
     "Neutral": -0.8162636734498229
   },
   "median_annualized_roi_by_cycle_type": {
-    "Bear": -0.5265841580261565,
-    "Bull": -0.5792716315213251,
+    "Bear": -0.5388199185469076,
+    "Bull": -0.5760940116850023,
     "Neutral": -0.39766215100011315
   },
   "median_roi_vs_btc_by_cycle_type": {
-    "Bear": -0.9592683762437862,
-    "Bull": -0.9552745802338539,
+    "Bear": -0.9592707379470689,
+    "Bull": -0.953785406732506,
     "Neutral": -0.9597410915140213
   },
   "fraction_currently_top100_by_cycle_type": {
-    "Bear": 0.10526315789473684,
-    "Bull": 0.0873015873015873,
+    "Bear": 0.08928571428571429,
+    "Bull": 0.09448818897637795,
     "Neutral": 0.25
   },
   "median_drawdown_by_cycle_type": {
-    "Bear": 0.9682418095833596,
-    "Bull": 0.9798166962266818,
+    "Bear": 0.969101359223301,
+    "Bull": 0.9796602459016394,
     "Neutral": 0.9633146656321758
   },
   "delist_rate_by_cycle_type": {
-    "Bear": 0.12280701754385964,
-    "Bull": 0.16666666666666666,
+    "Bear": 0.125,
+    "Bull": 0.16535433070866143,
     "Neutral": 0.0
   },
   "best_performers": [
@@ -53,8 +53,8 @@
       "id": "dogecoin",
       "symbol": "doge",
       "name": "Dogecoin",
-      "cycle_type": "Bear",
-      "cycle_name": "2014-2015 Bear",
+      "cycle_type": "Bull",
+      "cycle_name": "2013 Bull (Fall)",
       "annualized_roi": 0.3198307698626388,
       "roi_since_launch": 28.420925860920782,
       "roi_vs_btc": -0.6837904553149996,
@@ -280,18 +280,18 @@
       "binance_delisted": true
     }
   ],
-  "bull_vs_bear_mannwhitney_pvalue": 0.4840931121588393,
-  "bull_vs_bear_effect_size": -0.07619047619047614,
-  "bull_vs_bear_median_diff": -0.05268747349516856,
-  "bull_vs_bear_ci_lower": -0.1438101996056338,
-  "bull_vs_bear_ci_upper": 0.10694014721672199,
-  "bull_n": 105,
-  "bear_n": 39,
-  "btc_rel_mannwhitney_pvalue": 0.7799407384731398,
-  "btc_rel_effect_size": 0.030729166666666696,
-  "btc_rel_median_diff": 0.003993796009932327,
-  "btc_rel_ci_lower": -0.028342849298586208,
-  "btc_rel_ci_upper": 0.03621059880912679,
+  "bull_vs_bear_mannwhitney_pvalue": 0.6997488464545185,
+  "bull_vs_bear_effect_size": -0.04245283018867929,
+  "bull_vs_bear_median_diff": -0.03727409313809471,
+  "bull_vs_bear_ci_lower": -0.13154643131780802,
+  "bull_vs_bear_ci_upper": 0.11229445044370283,
+  "bull_n": 106,
+  "bear_n": 38,
+  "btc_rel_mannwhitney_pvalue": 0.6133872221539514,
+  "btc_rel_effect_size": 0.055775839280993944,
+  "btc_rel_median_diff": 0.00548533121456285,
+  "btc_rel_ci_lower": -0.026568409796562498,
+  "btc_rel_ci_upper": 0.03904946503920559,
   "tokens_excluded_stablecoin": 19,
   "tokens_excluded_wrapped": 3,
   "tokens_imputed_dead": 18

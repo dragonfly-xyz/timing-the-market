@@ -157,16 +157,6 @@ export default function TokenTable({ tokens }: { tokens: Token[] }) {
         },
         size: 100,
       }),
-      col.accessor("drawdown_from_ath", {
-        header: "Drawdown",
-        cell: (info) => {
-          const v = info.getValue();
-          if (v == null) return <span className="text-faint">—</span>;
-          if (v === 0) return <span className="font-mono text-dim">0.0%</span>;
-          return <span className="font-mono text-bear">-{fmtPct(v)}</span>;
-        },
-        size: 100,
-      }),
       col.accessor("launch_date", {
         header: "Launch",
         cell: (info) => (

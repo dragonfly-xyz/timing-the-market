@@ -2,8 +2,8 @@
 Collect data using Binance listings as the primary dataset.
 
 Instead of taking today's top 200 (survivorship bias), we use every token
-ever listed on Binance spot market. This includes tokens that were later
-delisted — the failures that a top-200 approach would miss.
+whose listing was announced on the Binance blog. This includes tokens that
+were later delisted — the failures that a top-200 approach would miss.
 
 For each listed token, we fetch current/last-known price data from CoinGecko
 to compute performance metrics.

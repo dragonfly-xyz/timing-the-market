@@ -21,7 +21,7 @@ const CYCLE_COLORS: Record<string, string> = {
   Unknown: "#555555",
 };
 
-const CYCLE_TYPE_ORDER = ["Early", "Bull", "Bear", "Neutral"];
+const CYCLE_TYPE_ORDER = ["Bull", "Bear"];
 
 function formatROI(value: number): string {
   if (Math.abs(value) >= 10000) return `${(value / 1000).toFixed(0)}k%`;
@@ -47,11 +47,6 @@ export default function ROIComparison({ tokens, summaryMedians }: ROIComparisonP
   const cycleTypes = CYCLE_TYPE_ORDER.filter(
     (ct) => roiByCycleType[ct] && roiByCycleType[ct].length > 0
   );
-  for (const ct of Object.keys(roiByCycleType)) {
-    if (!cycleTypes.includes(ct) && roiByCycleType[ct].length > 0) {
-      cycleTypes.push(ct);
-    }
-  }
 
   if (cycleTypes.length === 0) {
     return (
@@ -95,6 +90,7 @@ export default function ROIComparison({ tokens, summaryMedians }: ROIComparisonP
             tick={{ fill: "#888888", fontSize: 13 }}
           />
           <YAxis
+            domain={[Math.min(0, ...chartData.map((d) => d.medianROI)) - 5, Math.max(0, ...chartData.map((d) => d.medianROI)) + 5]}
             tickFormatter={formatROI}
             stroke="#333333"
             tick={{ fill: "#888888", fontSize: 12 }}

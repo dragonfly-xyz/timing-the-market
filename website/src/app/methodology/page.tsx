@@ -31,7 +31,7 @@ export default function MethodologyPage() {
           >
             Binance announcements
           </a>
-          , covering every token ever listed on the exchange. Each token is then
+          , covering every token whose listing was announced on the blog. Each token is then
           enriched with current price data, market cap, ATH/ATL, and categories
           from the{" "}
           <a

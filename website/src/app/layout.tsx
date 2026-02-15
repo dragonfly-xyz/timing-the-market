@@ -3,9 +3,9 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Timing the Market — Token Launch Timing Analysis",
+  title: "Timing the Token Market",
   description:
-    "Does it matter when a token launches? Analysis of every token ever listed on Binance.",
+    "Does it matter when you launch your token? Analysis of every token announced on the Binance blog.",
 };
 
 function Nav() {
@@ -17,7 +17,7 @@ function Nav() {
   ];
   return (
     <nav className="border-b border-edge bg-black">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+      <div className="mx-auto max-w-6xl px-6 py-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <Link href="/" className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -27,11 +27,11 @@ function Nav() {
           />
           <span className="text-dfly-grey font-primary text-lg font-bold tracking-tight">
             TIMING
-            <span className="text-faint mx-1 text-xs font-normal uppercase tracking-[0.15em]">the</span>
-            <span className="text-accent">MARKET</span>
+            <span className="text-dim mx-1 text-sm font-normal uppercase tracking-[0.15em]">the</span>
+            <span className="text-accent">TOKEN MARKET</span>
           </span>
         </Link>
-        <div className="flex gap-8">
+        <div className="flex gap-6 md:gap-8">
           {links.map((l) => (
             <Link
               key={l.href}

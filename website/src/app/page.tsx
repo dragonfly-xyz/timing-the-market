@@ -36,10 +36,10 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-8">
         <h1 className="font-primary text-5xl md:text-6xl font-bold leading-[0.9] tracking-[-2px] max-w-[680px]">
-          Does it matter when a token launches?
+          Does it matter when you launch your token?
         </h1>
         <p className="text-dim text-lg mt-6 max-w-2xl leading-relaxed">
-          An analysis of every token ever listed on Binance (
+          An analysis of every token whose listing was announced on the Binance blog (
           {summary.total_tokens} tokens after filtering), comparing long-term
           performance by market cycle, including {delistedCount} that were
           later delisted.
@@ -48,7 +48,7 @@ export default function Home() {
 
       {/* Verdict */}
       <section className="bg-surface border border-edge p-8 md:p-10">
-        <p className="font-mono text-faint text-xs uppercase tracking-[0.2em] mb-4">
+        <p className="font-mono text-dim text-sm uppercase tracking-[0.2em] mb-4">
           The Verdict
         </p>
         <p className="font-primary text-2xl md:text-3xl font-bold leading-snug tracking-[-1px]">
@@ -59,7 +59,7 @@ export default function Home() {
         <p className="text-dim mt-4 max-w-2xl leading-relaxed">
           {isSignificant
             ? "Bull and bear market tokens show a measurable difference in median performance, though effect size should be considered before drawing practical conclusions."
-            : "There is no statistically significant difference in performance between tokens launched in bull markets vs bear markets."}
+            : <>There is <strong className="text-dfly-grey">no statistically significant difference</strong> in performance between tokens launched in bull markets vs bear markets.</>}
         </p>
         <p className="text-dim mt-3 max-w-2xl leading-relaxed">
           {isSignificant
@@ -72,7 +72,7 @@ export default function Home() {
             : "That said, if you are doing a token sale along with your launch, the inverse is true\u2014if you\u2019re actually selling tokens, then obviously a bull market is better for you."}
         </p>
         {pValue != null && (
-          <div className="flex flex-wrap gap-6 mt-5 font-mono text-xs text-faint">
+          <div className="flex flex-wrap gap-6 mt-5 font-mono text-sm text-dfly-grey/70">
             <span>Mann-Whitney p = {pValue.toFixed(4)}</span>
             {summary.bull_vs_bear_effect_size != null && (
               <span>
@@ -168,6 +168,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Methodology */}
+      <section>
+        <h2 className="font-primary text-2xl md:text-[50px] md:leading-[0.9] md:tracking-[-1px] font-bold mb-6">
+          Methodology
+        </h2>
+        <div className="text-dim space-y-3 max-w-2xl leading-relaxed">
+          <p>
+            We collected every token whose listing was announced on the Binance blog, including those later delisted.
+            Each token is classified by its launch date into a BTC market cycle (bull or bear) and its long-term
+            annualized ROI is computed. Delisted tokens with no remaining price data are imputed as total losses
+            to avoid survivorship bias.
+          </p>
+          <p>
+            The primary test is a Mann-Whitney U (non-parametric) comparing annualized ROI between bull-launched
+            and bear-launched tokens, with bootstrap confidence intervals and sensitivity analysis across
+            shifted cycle boundaries.
+          </p>
+          <p>
+            <a href="/methodology" className="text-accent hover:underline font-mono text-sm">
+              Full methodology &rarr;
+            </a>
+          </p>
+        </div>
+      </section>
+
       {/* Key Limitations */}
       <section className="border border-accent/20 p-8">
         <p className="font-mono text-accent text-xs uppercase tracking-[0.15em] mb-4">
@@ -197,6 +222,61 @@ export default function Home() {
         </ul>
       </section>
 
+      {/* Disclosures */}
+      <section className="border-t border-edge pt-8">
+        <p className="font-mono text-faint text-xs uppercase tracking-[0.15em] mb-4">
+          Disclosures
+        </p>
+        <div className="space-y-3 text-xs text-faint leading-relaxed">
+          <p>
+            This report is for informational purposes only. It is not an offer, solicitation, or
+            recommendation to buy or sell any securities, tokens, or digital assets, or to pursue
+            any particular investment strategy. Nothing herein constitutes investment, legal, tax,
+            or other professional advice. You should consult your own advisers before making any
+            investment decisions.
+          </p>
+          <p>
+            Dragonfly Digital Management, LLC (&ldquo;Dragonfly&rdquo;) is an SEC-registered
+            investment adviser that holds positions in cryptocurrency and digital assets, including
+            tokens that may be referenced in this analysis. Dragonfly is acting in its own financial
+            interest and not necessarily in the interests of other token holders.
+          </p>
+          <p>
+            There are no warranties, expressed or implied, as to the accuracy, completeness, or
+            results obtained from any information provided herein. Information has been obtained from
+            sources believed to be reliable, but neither Dragonfly nor its affiliates warrant the
+            timeliness, accuracy, or completeness of this information. The information is subject to
+            change without notice.
+          </p>
+          <p>
+            Past performance is not indicative of future results. Any forward-looking statements
+            reflect current views and involve risks and uncertainties that could cause actual results
+            to differ materially.
+          </p>
+          <p>
+            For additional information, see Dragonfly&rsquo;s{" "}
+            <a
+              href="https://www.dragonfly.xyz/legal/disclosures"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-dim hover:underline"
+            >
+              Disclosures
+            </a>
+            {" "}and{" "}
+            <a
+              href="https://www.dragonfly.xyz/legal/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-dim hover:underline"
+            >
+              Terms of Use
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       {/* Attribution */}
       <section className="text-center py-4">
         <p className="font-mono text-xs text-faint">
@@ -209,9 +289,18 @@ export default function Home() {
           >
             Claude Code
           </a>
+          , piloted by{" "}
+          <a
+            href="https://twitter.com/hosaboron"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline"
+          >
+            Haseeb Qureshi
+          </a>
           {" "}&middot;{" "}
           <a
-            href="https://github.com/Haseeb-Qureshi/timing-the-market"
+            href="https://github.com/dragonfly-xyz/timing-the-market"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent hover:underline"

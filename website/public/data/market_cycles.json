@@ -6,14 +6,26 @@
     "type": "Early"
   },
   {
-    "name": "2013 Bull",
+    "name": "2013 Bull (Spring)",
     "start": "2013-01-01",
-    "end": "2013-12-01",
+    "end": "2013-05-01",
+    "type": "Bull"
+  },
+  {
+    "name": "2013 Correction",
+    "start": "2013-05-01",
+    "end": "2013-10-01",
+    "type": "Neutral"
+  },
+  {
+    "name": "2013 Bull (Fall)",
+    "start": "2013-10-01",
+    "end": "2014-01-01",
     "type": "Bull"
   },
   {
     "name": "2014-2015 Bear",
-    "start": "2013-12-01",
+    "start": "2014-01-01",
     "end": "2015-08-01",
     "type": "Bear"
   },

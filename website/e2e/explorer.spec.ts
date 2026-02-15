@@ -40,17 +40,9 @@ test.describe("Explorer Page", () => {
     await expect(table).toBeVisible();
 
     // Check key column headers exist
-    for (const header of ["#", "Name", "Status", "Cycle", "ROI", "Drawdown"]) {
+    for (const header of ["Name", "Status", "Cycle", "ROI", "Launch"]) {
       await expect(table.getByText(header, { exact: false }).first()).toBeVisible();
     }
-  });
-
-  test("table uses drawdown_from_ath field (not max_drawdown)", async ({ page }) => {
-    // The "Drawdown" header should be present
-    await expect(page.getByText("Drawdown").first()).toBeVisible();
-    // Content should not reference old field name
-    const content = await page.content();
-    expect(content).not.toContain("max_drawdown");
   });
 
   test("renders pagination controls", async ({ page }) => {
