@@ -1,0 +1,46 @@
+/* Non Natural Grotesk - Primary Font */
+@font-face {
+  font-family: 'Non Natural Grotesk';
+  src: url('/fonts/NONNaturalGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Non Natural Grotesk';
+  src: url('/fonts/NONNaturalGrotesk-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Non Natural Mono - Monospace Font */
+@font-face {
+  font-family: 'Non Natural Mono';
+  src: url('/fonts/NONNaturalMono-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+@theme {
+  --font-primary: 'Non Natural Grotesk', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Non Natural Mono', 'SF Mono', 'Monaco', 'Consolas', monospace;
+  --color-surface: #0a0a0a;
+  --color-raised: #141414;
+  --color-edge: #222222;
+  --color-dim: #888888;
+  --color-faint: #555555;
+  --color-bull: #34d399;
+  --color-bear: #fb7185;
+  --color-accent: #FA4C14;
+  --color-dfly-grey: #F2F2F2;
+  --color-dfly-pink: #EC39B6;
+  --color-dfly-blue: #5014FA;
+}
+
+::selection {
+  background: rgba(250, 76, 20, 0.3);
+}

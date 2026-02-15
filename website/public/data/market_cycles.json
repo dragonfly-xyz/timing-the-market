@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Pre-2013 Early",
+    "start": null,
+    "end": "2013-01-01",
+    "type": "Early"
+  },
+  {
+    "name": "2013 Bull",
+    "start": "2013-01-01",
+    "end": "2013-12-01",
+    "type": "Bull"
+  },
+  {
+    "name": "2014-2015 Bear",
+    "start": "2013-12-01",
+    "end": "2015-08-01",
+    "type": "Bear"
+  },
+  {
+    "name": "2015-2016 Recovery",
+    "start": "2015-08-01",
+    "end": "2016-01-01",
+    "type": "Neutral"
+  },
+  {
+    "name": "2016-2017 Bull",
+    "start": "2016-01-01",
+    "end": "2018-01-01",
+    "type": "Bull"
+  },
+  {
+    "name": "2018-2019 Bear",
+    "start": "2018-01-01",
+    "end": "2018-12-01",
+    "type": "Bear"
+  },
+  {
+    "name": "2019-2020 Recovery",
+    "start": "2018-12-01",
+    "end": "2020-03-01",
+    "type": "Neutral"
+  },
+  {
+    "name": "2020-2021 Bull",
+    "start": "2020-03-01",
+    "end": "2021-11-01",
+    "type": "Bull"
+  },
+  {
+    "name": "2022 Bear",
+    "start": "2021-11-01",
+    "end": "2022-11-01",
+    "type": "Bear"
+  },
+  {
+    "name": "2023 Recovery",
+    "start": "2022-11-01",
+    "end": "2023-10-01",
+    "type": "Neutral"
+  },
+  {
+    "name": "2023-2025 Bull",
+    "start": "2023-10-01",
+    "end": "2025-11-01",
+    "type": "Bull"
+  },
+  {
+    "name": "2025-2026 Bear",
+    "start": "2025-11-01",
+    "end": null,
+    "type": "Bear"
+  }
+]
