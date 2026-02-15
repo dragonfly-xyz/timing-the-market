@@ -7,6 +7,13 @@ function fmtPct(n: number | null | undefined): string {
   return `${(n * 100).toFixed(1)}%`;
 }
 
+function fmtRelPct(n: number | null | undefined): string {
+  if (n == null) return "\u2014";
+  const val = n * 100;
+  const sign = val >= 0 ? "+" : "";
+  return `${sign}${val.toFixed(1)}pp`;
+}
+
 function effectSizeLabel(r: number | null | undefined): string {
   if (r == null) return "";
   const abs = Math.abs(r);
@@ -21,6 +28,20 @@ export default function Home() {
   const bearAnnROI = summary.median_annualized_roi_by_cycle_type["Bear"];
   const bullDelist = summary.delist_rate_by_cycle_type?.["Bull"];
   const bearDelist = summary.delist_rate_by_cycle_type?.["Bear"];
+
+  // Relative performance: each vs the midpoint of bull & bear
+  const overallMedian =
+    bullAnnROI != null && bearAnnROI != null
+      ? (bullAnnROI + bearAnnROI) / 2
+      : null;
+  const bullRelative =
+    bullAnnROI != null && overallMedian != null
+      ? bullAnnROI - overallMedian
+      : null;
+  const bearRelative =
+    bearAnnROI != null && overallMedian != null
+      ? bearAnnROI - overallMedian
+      : null;
   const tokensWithDate = tokens.filter((t) => t.launch_date);
   const delistedCount = tokens.filter((t) => t.binance_delisted).length;
   const tokensWithoutData = tokens.filter(
@@ -107,7 +128,7 @@ export default function Home() {
               )}
             </p>
             {[
-              { val: fmtPct(bullAnnROI), label: "median annualized ROI" },
+              { val: fmtRelPct(bullRelative), label: "vs overall median ann. ROI" },
               { val: fmtPct(bullDelist), label: "delist rate" },
             ].map(({ val, label }) => (
               <div key={label}>
@@ -126,7 +147,7 @@ export default function Home() {
               )}
             </p>
             {[
-              { val: fmtPct(bearAnnROI), label: "median annualized ROI" },
+              { val: fmtRelPct(bearRelative), label: "vs overall median ann. ROI" },
               { val: fmtPct(bearDelist), label: "delist rate" },
             ].map(({ val, label }) => (
               <div key={label}>
