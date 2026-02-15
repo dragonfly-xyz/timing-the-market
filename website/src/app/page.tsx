@@ -291,7 +291,7 @@ export default function Home() {
           </a>
           , piloted by{" "}
           <a
-            href="https://twitter.com/hosaboron"
+            href="https://twitter.com/hosseeb"
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent hover:underline"
