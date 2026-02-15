@@ -8,16 +8,16 @@ Live site: [timing-tokens.dragonfly.xyz](https://timing-tokens.dragonfly.xyz) | 
 
 ## Key Findings
 
-- **203 tokens** analyzed from Binance blog listing announcements (including 18 delisted/dead tokens imputed as total losses)
-- **p-value: 0.70** (Mann-Whitney U test, bull vs bear launched tokens) — well above the 0.05 significance threshold
-- **Effect size: -0.04** (rank-biserial correlation) — negligible
-- **95% CI for median difference: [-13.2%, +11.2%]** — straddles zero
-- Median annualized ROI: **-57.6%** (bull-launched) vs **-53.9%** (bear-launched) — both terrible, no meaningful difference
+- **202 tokens** analyzed from Binance blog listing announcements (including 18 delisted/dead tokens imputed as total losses)
+- **p-value: 0.81** (Mann-Whitney U test, bull vs bear launched tokens) — well above the 0.05 significance threshold
+- **Effect size: 0.03** (rank-biserial correlation) — negligible
+- **95% CI for median difference: [-10.9%, +14.2%]** — straddles zero
+- Median annualized ROI: **-57.3%** (bull-launched) vs **-59.8%** (bear-launched) — both terrible, no meaningful difference
 - Result holds across all robustness checks:
   - Shifting cycle boundaries by +/- 1-2 months (sensitivity analysis)
   - Replacing hand-labeled cycles with BTC moving average regime classification (50/100/200/300-day SMA windows)
 - **Anchoring analysis**: Bear tokens actually launched at somewhat higher median market caps — no evidence of persistent bull-market valuation premium
-- 19 stablecoins and 3 wrapped tokens excluded from analysis
+- 17 stablecoins and 6 wrapped tokens excluded from analysis
 
 ## Methodology
 
