@@ -155,7 +155,10 @@ def collect_binance_tokens(
                     launch_price = _price_at_date(prices, launch_d)
                 mcaps = chart.get("market_caps", [])
                 if mcaps:
-                    launch_market_cap = _price_at_date(mcaps, launch_d)
+                    lmc = _price_at_date(mcaps, launch_d)
+                    # CoinGecko reports $0 market cap for first few days; treat as missing
+                    if lmc and lmc > 0:
+                        launch_market_cap = lmc
             except Exception as e:
                 print(f"    Warning: chart fetch failed: {e}")
 

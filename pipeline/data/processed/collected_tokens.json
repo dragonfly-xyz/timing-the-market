@@ -557,7 +557,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/54274/large/Test.png?1738997629",
     "launch_date": "2025-02-09",
     "launch_price": 0.13646948279719168,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 943350801.6377981,
     "launch_source": "binance_listing",
     "categories": [
@@ -738,7 +738,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/39850/large/_ME_Profile_Dark_2x.png?1734013082",
     "launch_date": "2024-12-10",
     "launch_price": 5.627643431945767,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 999992374.207399,
     "launch_source": "binance_listing",
     "categories": [
@@ -1066,7 +1066,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/39952/large/EURI.jpg?1724902829",
     "launch_date": "2024-08-26",
     "launch_price": 1.1074616505478871,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 46968932.99990108,
     "launch_source": "binance_listing",
     "categories": [
@@ -1224,7 +1224,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/35972/large/tnsr.png?1712687367",
     "launch_date": "2024-04-08",
     "launch_price": 1.698566644708241,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1000000000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -1453,7 +1453,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/34182/large/dym.png?1704253006",
     "launch_date": "2024-02-06",
     "launch_price": 4.885871175575166,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1000000000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -1605,7 +1605,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/30666/large/_dD8qr3M_400x400.png?1702913020",
     "launch_date": "2023-12-12",
     "launch_price": 2.449160444146205e-07,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 2100000000000000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -1651,7 +1651,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/33469/large/aeur-icon2.png?1701944612",
     "launch_date": "2023-12-04",
     "launch_price": 0.9317852150449567,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 47929604.59999999,
     "launch_source": "binance_listing",
     "categories": [
@@ -1775,7 +1775,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/30813/large/NTRN-token-round_-_200x200.png?1758439620",
     "launch_date": "2023-10-10",
     "launch_price": 0.3617138281236975,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 999686606.335585,
     "launch_source": "binance_listing",
     "categories": [
@@ -1800,7 +1800,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/31079/large/FDUSD_icon_black.png?1731097953",
     "launch_date": "2023-07-26",
     "launch_price": 1.0022247250714942,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 395411931.2693479,
     "launch_source": "binance_listing",
     "categories": [
@@ -2241,7 +2241,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/26455/large/Aptos-Network-Symbol-Black-RGB-1x.png?1761789140",
     "launch_date": "2022-10-18",
     "launch_price": 13.72738551467237,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1196135077.632466,
     "launch_source": "binance_listing",
     "categories": [
@@ -2345,7 +2345,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/25244/large/Optimism.png?1696524385",
     "launch_date": "2022-06-01",
     "launch_price": 1.3984243604618247,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 4294967296.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -2378,7 +2378,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/25767/large/01_Luna_color.png?1696524851",
     "launch_date": "2022-05-28",
     "launch_price": 5.151268597430131,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1078518456.25778,
     "launch_source": "binance_listing",
     "categories": [
@@ -2725,7 +2725,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/22459/large/Moonbeam_GLMR_ICON.png?1716647586",
     "launch_date": "2022-01-11",
     "launch_price": 11.941993860573733,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1216907390.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -3938,7 +3938,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/3370/large/5ZOu7brX_400x400.jpg?1696504070",
     "launch_date": "2018-06-25",
     "launch_price": 0.5837142767907266,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 14612493.0,
     "launch_source": "coingecko_genesis",
     "categories": [
@@ -4309,7 +4309,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180",
     "launch_date": "2021-05-10",
     "launch_price": 461.64888756786746,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 548948828.7363023,
     "launch_source": "binance_listing",
     "categories": [
@@ -4350,7 +4350,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800",
     "launch_date": "2021-05-10",
     "launch_price": 1.5690590573900127e-05,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 589500418093313.5,
     "launch_source": "binance_listing",
     "categories": [
@@ -4405,7 +4405,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/11693/large/BAR.png?1741518646",
     "launch_date": "2021-04-21",
     "launch_price": 37.172312303761124,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 39960000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -4499,7 +4499,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/13079/large/3vuYMbjN.png?1696512867",
     "launch_date": "2021-03-29",
     "launch_price": 1.3257429739196083,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 5732659499.895275,
     "launch_source": "binance_listing",
     "categories": [
@@ -4869,7 +4869,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/13940/large/ACM.png?1741425407",
     "launch_date": "2021-02-24",
     "launch_price": 6.011758247550172,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 19920000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -4993,7 +4993,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/11085/large/Trust.png?1696511026",
     "launch_date": "2021-01-27",
     "launch_price": 0.17282773835519694,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1000000000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -5019,7 +5019,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/9566/large/Nervos_White.png?1696509646",
     "launch_date": "2019-11-15",
     "launch_price": 0.010277496233952957,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 48981071733.00432,
     "launch_source": "coingecko_genesis",
     "categories": [
@@ -5136,7 +5136,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/11090/large/InjXBNx9_400x400.jpg?1696511031",
     "launch_date": "2021-01-05",
     "launch_price": 1.4839985870195758,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1000000000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -5345,7 +5345,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/13245/large/SKALE_token_300x300.png?1696513021",
     "launch_date": "2020-11-30",
     "launch_price": 0.07361070630716589,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 6076000000.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -5657,7 +5657,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/12171/large/polkadot.jpg?1766533446",
     "launch_date": "2020-08-18",
     "launch_price": 2.9366649977840584,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 1665247206.296118,
     "launch_source": "binance_listing",
     "categories": [
@@ -5695,7 +5695,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/12124/large/Curve.png?1696511967",
     "launch_date": "2020-08-14",
     "launch_price": 15.372107881166139,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 2352470119.663802,
     "launch_source": "binance_listing",
     "categories": [
@@ -5740,7 +5740,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/5010/large/iq_logo_1.png?1752115886",
     "launch_date": "2020-06-18",
     "launch_price": 0.0019313808545328144,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 24876092850.92899,
     "launch_source": "binance_listing",
     "categories": [
@@ -5981,7 +5981,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/4380/large/download.png?1696504978",
     "launch_date": "2019-06-21",
     "launch_price": 1.6049391988983346,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 8872363586.71888,
     "launch_source": "binance_listing",
     "categories": [
@@ -6016,7 +6016,7 @@
     "image": null,
     "launch_date": "2019-06-18",
     "launch_price": 9081.441293494707,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": null,
     "launch_source": "binance_listing",
     "categories": [],
@@ -6058,7 +6058,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/8029/large/1_0YusgngOrriVg4ZYx4wOFQ.png?1696508251",
     "launch_date": "2019-05-24",
     "launch_price": 0.008255883672523952,
-    "launch_market_cap": 0.0,
+    "launch_market_cap": null,
     "total_supply": 7228153159.0,
     "launch_source": "binance_listing",
     "categories": [
@@ -6238,7 +6238,7 @@
     "image": "https://coin-images.coingecko.com/coins/images/329/large/dcr.png?1762890696",
     "launch_date": "2016-02-08",
     "launch_price": 0.953412,
-    "launch_market_cap": 0,
+    "launch_market_cap": null,
     "total_supply": 17274926.18654054,
     "launch_source": "coingecko_genesis",
     "categories": [
