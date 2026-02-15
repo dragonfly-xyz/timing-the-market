@@ -106,6 +106,8 @@ export default function LaunchDistribution({
               color: "#F2F2F2",
               boxShadow: "0 8px 32px rgba(0,0,0,0.7)",
             }}
+            labelStyle={{ color: "#888888" }}
+            itemStyle={{ color: "#F2F2F2" }}
             formatter={(value) => [value ?? 0, "Tokens"]}
           />
           <Bar dataKey="count" radius={[2, 2, 0, 0]} maxBarSize={50}>
