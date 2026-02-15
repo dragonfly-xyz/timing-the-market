@@ -22,3 +22,9 @@ COINGECKO_PRO_BASE = "https://pro-api.coingecko.com/api/v3"
 # Collection settings
 TOP_N_TOKENS = 200
 RATE_LIMIT_DELAY = 0.15  # seconds between requests (Pro: 500/min)
+
+# Stablecoin symbols for filtering (shared between collector and analyzer)
+STABLECOIN_SYMBOLS = {
+    "ust", "susd", "tusdb", "bgbp", "busd", "usdt", "usdc", "tusd", "dai",
+    "fdusd", "usds", "usde", "usd1", "xusd", "rlusd", "gusd", "pax", "eurs",
+}

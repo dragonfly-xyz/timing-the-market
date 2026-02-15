@@ -32,6 +32,7 @@ const CYCLE_ORDER = [
   "2022 Bear",
   "2023 Recovery",
   "2023-2025 Bull",
+  "2025-2026 Bear",
 ];
 
 interface LaunchDistributionProps {

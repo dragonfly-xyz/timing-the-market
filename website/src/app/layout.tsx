@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 function Nav() {
   const links = [
     { href: "/", label: "Overview" },
-    { href: "/explorer", label: "Explorer" },
     { href: "/analysis", label: "Analysis" },
     { href: "/methodology", label: "Methodology" },
+    { href: "/explorer", label: "Explorer" },
   ];
   return (
     <nav className="border-b border-edge bg-black">

@@ -41,7 +41,7 @@ export default function Home() {
         <p className="text-dim text-lg mt-6 max-w-2xl leading-relaxed">
           An analysis of every token ever listed on Binance (
           {summary.total_tokens} tokens after filtering), comparing long-term
-          performance by market cycle &mdash; including {delistedCount} that were
+          performance by market cycle, including {delistedCount} that were
           later delisted.
         </p>
       </section>
@@ -53,13 +53,23 @@ export default function Home() {
         </p>
         <p className="font-primary text-2xl md:text-3xl font-bold leading-snug tracking-[-1px]">
           {isSignificant
-            ? "Statistically significant difference detected."
-            : "No statistically significant difference."}
+            ? "Yes, launch timing predicts long-term performance."
+            : "No, launching in a bull vs bear market does not predict performance."}
         </p>
-        <p className="text-dim mt-3 max-w-xl leading-relaxed">
+        <p className="text-dim mt-4 max-w-2xl leading-relaxed">
           {isSignificant
             ? "Bull and bear market tokens show a measurable difference in median performance, though effect size should be considered before drawing practical conclusions."
-            : "Both bull and bear market tokens show similar median performance. The market conditions at launch don\u2019t meaningfully predict long-term outcomes."}
+            : "There is no statistically significant difference in performance between tokens launched in bull markets vs bear markets."}
+        </p>
+        <p className="text-dim mt-3 max-w-2xl leading-relaxed">
+          {isSignificant
+            ? null
+            : "There may be other considerations in when you choose to launch your token: cost, exchange fees, marketing expenses, etc. But if anything, those likely cut against launching in a bull market, as they tend to be higher in bulls vs bears."}
+        </p>
+        <p className="text-dim mt-3 max-w-2xl leading-relaxed">
+          {isSignificant
+            ? null
+            : "That said, if you are doing a token sale along with your launch, the inverse is true\u2014if you\u2019re actually selling tokens, then obviously a bull market is better for you."}
         </p>
         {pValue != null && (
           <div className="flex flex-wrap gap-6 mt-5 font-mono text-xs text-faint">

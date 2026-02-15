@@ -14,7 +14,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-from .config import PROCESSED_DIR
+from .config import PROCESSED_DIR, STABLECOIN_SYMBOLS
 from .binance_fetcher import BinanceFetcher
 from .data_fetcher import CoinGeckoFetcher
 
@@ -179,7 +179,7 @@ def collect_binance_tokens(
             "launch_price": launch_price,
             "launch_source": launch_source,
             "categories": categories,
-            "category": _classify_category(categories, symbol=symbol),
+            "category": _classify_category(categories, symbol=sym),
             "binance_listed": True,
             "binance_delisted": is_delisted,
             "binance_delist_date": delist_date,
@@ -259,12 +259,6 @@ def _price_at_date(prices: list, target: date) -> Optional[float]:
     if best_diff <= 7:
         return best
     return None
-
-
-STABLECOIN_SYMBOLS = {
-    "ust", "susd", "tusdb", "bgbp", "busd", "usdt", "usdc", "tusd", "dai",
-    "fdusd", "usds", "usde", "usd1", "xusd", "rlusd", "gusd", "pax", "eurs",
-}
 
 
 def _classify_category(categories: list[str], symbol: str = "") -> str:

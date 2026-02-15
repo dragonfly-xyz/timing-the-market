@@ -1,111 +1,64 @@
-# Review Changelog
+# Code Review Findings
 
-This document summarizes all changes made following the four independent code reviews (statistical analysis, Binance data integrity, data pipeline transcription, and research methodology).
+Findings from 4 automated review subagents run on 2026-02-14, covering: statistical analysis, data integrity, pipeline transcription, and research methodology.
 
----
+## Fixes Applied
 
-## 1. Statistical Fixes
+The following issues were identified and fixed:
 
-### Dead Token Imputation — Survivorship Bias Leak (Critical)
+| Issue | Severity | Fix |
+|-------|----------|-----|
+| `NameError` in `binance_collector.py:182` — `symbol` undefined, should be `sym` | CRITICAL | Changed `symbol=symbol` to `symbol=sym` |
+| `LaunchDistribution.tsx` CYCLE_ORDER missing "2025-2026 Bear" | WARNING | Added to CYCLE_ORDER array |
+| Drawdown display shows `-0.0%` when token is at ATH | WARNING | Added `v === 0` check to show `0.0%` |
+| `STABLECOIN_SYMBOLS` duplicated in `analyzer.py` and `binance_collector.py` | NOTE | Consolidated into `config.py`, both modules import from there |
 
-**Problem:** `_impute_dead_tokens()` set `roi_since_launch = -1.0` for dead tokens but left `annualized_roi` as `None`. Since the primary Mann-Whitney U test operates on `annualized_roi`, dead tokens were silently excluded from the main statistical comparison, creating a survivorship bias leak.
+## Acknowledged Limitations
 
-**Fix:** `pipeline/src/analyzer.py` — imputation now also sets `annualized_roi = -1.0` for dead tokens older than 365 days (the CAGR threshold). Tokens under 365 days still skip annualized ROI since CAGR is undefined for them.
+These are methodological limitations that are documented but do not require code changes:
 
-```python
-# Before: only roi_since_launch was imputed
-t["roi_since_launch"] = -1.0
+### Token Age Confound
+Annualized ROI (CAGR) is confounded with token age. Older tokens that survive represent a selection effect. The study compares tokens of different ages because bull and bear markets occurred at different times. This is inherent to the research question and disclosed on the methodology page.
 
-# After: annualized_roi also imputed for tokens old enough for CAGR
-t["roi_since_launch"] = -1.0
-if t.get("annualized_roi") is None and t.get("age_days") and t["age_days"] > 365:
-    t["annualized_roi"] = -1.0
-```
+### Multiple Testing
+Two primary tests are run (annualized ROI and BTC-relative). No Bonferroni correction is applied. Since both tests return non-significant results (p=0.48 and p=0.78), the false positive concern is moot for the current data. If the result ever becomes significant, correction should be applied.
 
-### NaN/Infinity Filtering Before Statistical Tests (Medium)
+### Binance-Only Sampling Frame
+Only tokens listed on Binance are included. Binance's listing criteria may vary by market cycle (more selective during bears), which could confound the comparison. This is disclosed on the methodology page.
 
-**Problem:** Extreme values (e.g. tokens with very small launch prices) could produce `float('inf')` ROI values. These pass Python's `is not None` check and enter `scipy.stats.mannwhitneyu`, potentially corrupting results or raising errors.
+### Binance CMS Scraper Coverage
+The scraper matches "Binance Will List" title format, which misses some older listing announcements that used different formats ("Binance Lists X", "Launchpool", etc.). The current dataset of 225 tokens covers the period from 2018 onward well but underrepresents pre-2018 tokens. Tokens with earlier CoinGecko genesis dates still get correctly classified by cycle via the genesis_date preference logic.
 
-**Fix:** Added `_finite_values()` helper that filters out `NaN` and `Infinity` before all statistical test inputs (both annualized ROI and BTC-relative tests).
+### Market Cycle Boundary Definitions
+Cycle boundaries are hard-coded based on historical BTC price movements. The 2025-2026 Bear classification is provisional. Sensitivity analysis tests +/- 2 month boundary shifts and all produce non-significant results, supporting robustness.
 
-```python
-def _finite_values(values: list[float]) -> list[float]:
-    return [v for v in values if math.isfinite(v)]
-```
+### Dead Token Imputation
+Setting ROI = -1.0 for dead tokens creates a mass point at -100%. This is conservative and symmetric (applies to both groups). The imputation rate by group: Bull 16.7% delisted, Bear 12.3% delisted. The imputation prevents survivorship bias.
 
-### Sensitivity Analysis Effect Sizes (Medium)
+### Neutral Token Exclusion
+Tokens launched during "Recovery" periods (20 tokens) are excluded from the primary Bull vs Bear test. This is a design choice to test the clearest bull/bear contrast.
 
-**Problem:** The sensitivity analysis (`compute_sensitivity`) reported p-values but not effect sizes, making it impossible to assess practical significance at shifted boundaries.
+### BTC-Relative Metric Endogeneity
+The BTC-relative return is partially endogenous to cycle classification since BTC's performance differs by cycle. This metric is secondary and not used for the main verdict.
 
-**Fix:** Added rank-biserial effect size computation to each sensitivity shift result. Updated the `SensitivityResult` TypeScript interface to include `effect_size: number | null`.
+### Sample Size Imbalance
+105 Bull vs 39 Bear tokens. Mann-Whitney U handles unequal sizes, but the smaller bear group limits precision. Bootstrap CI quantifies this uncertainty.
 
-### Dead Code Removal (Low)
+## Issues Not Requiring Action
 
-Removed unused `total_before_filter` variable from `compute_summary()`.
+### Statistical Methodology (All Correct)
+- Mann-Whitney U test implementation is correct and appropriate
+- Rank-biserial effect size formula is correct
+- Bootstrap 95% CI (percentile method, 10K resamples, seed=42) is standard
+- Geometric BTC-relative return `(1+token)/(1+btc)-1` is correct
+- CAGR formula with 365-day minimum threshold is correct
+- Dead token imputation is idempotent (safe despite shared mutable state)
 
----
+### Shared Mutable State Between Pipeline Stages
+`compute_summary` and `compute_sensitivity` both mutate token dicts via `_impute_dead_tokens`. This works correctly because imputation is idempotent, but the calling order matters. Documented as technical debt.
 
-## 2. Data Validation
+### CoinGecko Cache Expiration
+The file-based cache never expires. This is fine for one-time analysis but means re-runs without clearing cache produce stale results. By design for reproducibility.
 
-### Pydantic Token Validation at Export (Medium)
-
-**Problem:** The `TokenMetrics` Pydantic model existed in `models.py` but was never used to validate token data before export. Field name typos or type mismatches would only surface at website render time.
-
-**Fix:** `pipeline/src/exporter.py` now runs every token through `TokenMetrics(**t)` before writing `tokens.json`. Validation failures log a warning but still include the token to avoid silent data loss.
-
----
-
-## 3. Website Fixes
-
-### MarketCycleChart Tooltip Flickering (P1)
-
-**Problem:** The `<ComposedChart>` had an `onMouseMove` handler that checked pixel distance from the hovered dot on every mouse frame. Combined with a dual tooltip system (native Recharts + custom positioned div), this caused constant state re-evaluations and flicker.
-
-**Fix:** Removed the `onMouseMove` handler from `<ComposedChart>` and the container `onMouseLeave`. Dot-level `onMouseEnter`/`onMouseLeave` handlers on each `<circle>` element are sufficient for clean tooltip behavior.
-
-### Token Table Redesign (P2)
-
-**File:** `website/src/components/tables/TokenTable.tsx`
-
-| Change | Detail |
-|--------|--------|
-| Performance grade column | Percentile-based letter grade (A-F) computed from annualized ROI distribution. A = top 20%, F = bottom 20%. Color-coded badges. |
-| Default sort | Changed from `market_cap_rank ascending` to `annualized_roi descending` — best performers shown first. |
-| Removed columns | `#` (market cap rank), `Price` (absolute price is meaningless for comparison), `Market Cap` — grade replaces rank as the quick-scan metric. |
-| Horizontal scroll | Added `min-w-[900px]` to inner `<table>` for predictable scroll inside `overflow-x-auto` container. |
-
-### SurvivalRateChart Tooltip Label (Low)
-
-Changed tooltip label from "Survival Rate" to "Fraction in Top 100" to match the actual metric being displayed (`fraction_currently_top100_by_cycle_type`).
-
----
-
-## 4. Test Updates
-
-| File | Change |
-|------|--------|
-| `pipeline/tests/test_analyzer.py` | Updated `test_imputes_delisted_no_price` to assert `annualized_roi == -1.0`. Added `test_imputes_roi_but_not_annualized_for_young_tokens` (age < 365d). Updated sensitivity test to verify `effect_size` in results. |
-| `website/e2e/explorer.spec.ts` | Updated header check from `"Price"` to `"Grade"` after column removal. |
-
----
-
-## 5. Verification
-
-- Pipeline tests: **37/37 passed** (`PYTHONPATH=. pytest pipeline/tests/ -v`)
-- Website build: **Compiled successfully** (`npm run build`)
-- Playwright E2E tests: **63/63 passed** (`npx playwright test`)
-
----
-
-## Files Modified
-
-| File | Lines Changed | Summary |
-|------|--------------|---------|
-| `pipeline/src/analyzer.py` | ~30 | Dead token imputation fix, NaN filtering, sensitivity effect sizes, dead code removal |
-| `pipeline/src/exporter.py` | ~20 | Added Pydantic `TokenMetrics` validation before export |
-| `pipeline/tests/test_analyzer.py` | ~15 | Updated/added tests for imputation and sensitivity |
-| `website/src/components/charts/MarketCycleChart.tsx` | ~5 | Removed onMouseMove tooltip handler |
-| `website/src/components/tables/TokenTable.tsx` | ~100 | Grade column, default sort, column reduction, scroll fix |
-| `website/src/components/charts/SurvivalRateChart.tsx` | ~1 | Tooltip label correction |
-| `website/src/types.ts` | ~1 | Added `effect_size` to `SensitivityResult` |
-| `website/e2e/explorer.spec.ts` | ~1 | Header assertion update |
+### Stale Data Warnings
+Several review findings about stale data are addressed by the genesis date fix script and re-running analysis. Wrong CoinGecko ID mappings (BTCB, BOT, VAI) were from the initial collection and have been corrected by the `fix_genesis_dates.py` script.

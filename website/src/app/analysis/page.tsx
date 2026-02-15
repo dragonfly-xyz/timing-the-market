@@ -78,56 +78,6 @@ export default function AnalysisPage() {
         </div>
       </section>
 
-      {/* ROI vs BTC */}
-      <section>
-        <h2 className="font-primary text-2xl font-bold tracking-[-1px] mb-6">
-          ROI vs BTC by Cycle
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {(["Bull", "Bear", "Neutral", "Early"] as const).map((ct) => {
-            const v = summary.median_roi_vs_btc_by_cycle_type[ct];
-            const color =
-              v != null && v >= 0 ? "text-bull" : "text-bear";
-            return (
-              <div key={ct} className="bg-surface border border-edge p-6">
-                <p className="text-dim text-sm mb-1">
-                  <span className={CYCLE_TYPE_COLORS[ct]}>{ct}</span> launches
-                </p>
-                <p
-                  className={`font-mono text-xl font-bold ${v != null ? color : "text-faint"}`}
-                >
-                  {fmtPct(v)}
-                </p>
-                <p className="text-faint text-xs mt-1 font-mono uppercase">median ROI vs BTC</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Drawdown */}
-      <section>
-        <h2 className="font-primary text-2xl font-bold tracking-[-1px] mb-6">
-          Median Drawdown from ATH
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {(["Bull", "Bear", "Neutral", "Early"] as const).map((ct) => {
-            const v = summary.median_drawdown_by_cycle_type[ct];
-            return (
-              <div key={ct} className="bg-surface border border-edge p-6">
-                <p className="text-dim text-sm mb-1">
-                  <span className={CYCLE_TYPE_COLORS[ct]}>{ct}</span> launches
-                </p>
-                <p className="font-mono text-xl font-bold text-bear">
-                  {v != null ? `-${fmtPct(v)}` : "\u2014"}
-                </p>
-                <p className="text-faint text-xs mt-1 font-mono uppercase">median drawdown</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Statistical tests */}
       {summary.bull_vs_bear_mannwhitney_pvalue != null && (
         <section className="bg-surface border border-edge p-8">

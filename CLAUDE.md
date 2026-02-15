@@ -121,6 +121,11 @@ The website follows the **Dragonfly** brand design language:
 - **Logo**: Dragonfly logomark + wordmark SVGs in `website/public/images/`.
 - **Style principles**: No rounded corners on containers, sharp edges, uppercase monospace labels, dotted separators, generous whitespace, no gradients.
 
+## Maintenance
+
+- **README.md** should be kept up to date when key results, methodology, or project structure change. After re-running analysis with different data or cycle boundaries, update the Key Findings section.
+- **REVIEW.md** contains findings from code review subagents. Re-run reviews after significant changes and update accordingly.
+
 ## Tech Stack
 
 - **Pipeline**: Python 3.14+, httpx, pydantic, scipy, numpy, pytest, python-dotenv

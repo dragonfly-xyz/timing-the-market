@@ -5,6 +5,7 @@ from scipy import stats
 from datetime import date
 from typing import Optional
 
+from .config import STABLECOIN_SYMBOLS
 from .models import SummaryStats
 from .market_cycles import MARKET_CYCLES, classify_launch_date
 
@@ -23,13 +24,6 @@ def _median(values: list[float]) -> Optional[float]:
     if not values:
         return None
     return float(np.median(values))
-
-
-# Symbols that are stablecoins regardless of CoinGecko categorization
-STABLECOIN_SYMBOLS = {
-    "ust", "susd", "tusdb", "bgbp", "busd", "usdt", "usdc", "tusd", "dai",
-    "fdusd", "usds", "usde", "usd1", "xusd", "rlusd", "gusd", "pax", "eurs",
-}
 
 
 def _filter_tokens(tokens: list[dict]) -> tuple[list[dict], int, int]:
