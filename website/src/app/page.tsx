@@ -65,6 +65,9 @@ export default function Home() {
           performance by market cycle, including {delistedCount} that were
           later delisted.
         </p>
+        <p className="font-mono text-faint text-xs mt-4 uppercase tracking-[0.1em]">
+          Analysis date: February 2025
+        </p>
       </section>
 
       {/* Verdict */}
