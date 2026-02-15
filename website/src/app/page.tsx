@@ -11,7 +11,7 @@ function fmtRelPct(n: number | null | undefined): string {
   if (n == null) return "\u2014";
   const val = n * 100;
   const sign = val >= 0 ? "+" : "";
-  return `${sign}${val.toFixed(1)}pp`;
+  return `${sign}${val.toFixed(1)}%`;
 }
 
 function effectSizeLabel(r: number | null | undefined): string {
